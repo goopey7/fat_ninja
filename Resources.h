@@ -10,6 +10,7 @@ namespace Textures
 		// insert texture IDs here
 		Tux,
 		Terminal,
+		Mario,
 	};
 }
 namespace Fonts

@@ -12,16 +12,16 @@ Level::Level(sf::RenderWindow& window)
 void Level::loadTextures()
 {
 	// Load Textures Here
-	textures.load(Textures::Tux, "art/tux.png");
+	textures.load(Textures::Mario,"art/marioSheet.png");
 	textures.load(Textures::Terminal, "art/bkg.jpg");
 }
 
 void Level::buildGraph()
 {
 	// Tux Entity
-	std::unique_ptr<Tux> tux(new Tux(textures));
-	tux->setPosition(spawnPos);
-	worldLayers[Foreground]->attachChild(std::move(tux));
+	std::unique_ptr<Mario> mario(new Mario(textures));
+	mario->setPosition(spawnPos);
+	worldLayers[Foreground]->attachChild(std::move(mario));
 
 	// bkg
 	std::unique_ptr<SpriteNode> bkg(new SpriteNode(textures.get(Textures::Terminal)));

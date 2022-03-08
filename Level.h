@@ -3,7 +3,7 @@
 
 #include "gf/World.h"
 #include "Resources.h"
-#include "Tux.h"
+#include "Mario.h"
 
 class Level : public World
 {
