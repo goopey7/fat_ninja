@@ -1,0 +1,3 @@
+[submodule "goopFramework"]
+	path = gf
+	url = git@github.com:goopey7/goopFramework.git
