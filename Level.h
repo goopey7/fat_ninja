@@ -1,7 +1,7 @@
 //Copyright Sam Collier 2022
 #pragma once
 
-#include "goopFramework/World.h"
+#include "gf/World.h"
 #include "Resources.h"
 #include "Tux.h"
 

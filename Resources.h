@@ -1,7 +1,7 @@
 //Copyright Sam Collier 2022
 #pragma once
 
-#include "goopFramework/ResourceHolder.h"
+#include "gf/ResourceHolder.h"
 
 namespace Textures
 {

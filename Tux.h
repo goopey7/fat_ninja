@@ -1,7 +1,7 @@
 //Copyright Sam Collier 2022
 #pragma once
 
-#include "goopFramework/Actor.h"
+#include "gf/Actor.h"
 #include "Resources.h"
 
 class Tux : public Actor

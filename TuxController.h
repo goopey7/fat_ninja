@@ -1,7 +1,7 @@
 //Copyright Sam Collier 2022
 #pragma once
 
-#include "goopFramework/PlayerController.h"
+#include "gf/PlayerController.h"
 
 class TuxController : public PlayerController
 {
