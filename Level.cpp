@@ -22,6 +22,7 @@ void Level::buildGraph()
 	// Player Entity
 	std::unique_ptr<Mario> mario(new Mario(textures,&window));
 	mario->setPosition(spawnPos);
+	collidingActors.push_back(mario.get());
 	worldLayers[Entity]->attachChild(std::move(mario));
 
 	// Test Wall
@@ -31,6 +32,7 @@ void Level::buildGraph()
 	wall->setTextureRect(sf::IntRect(0,0,16,16));
 	wall->setScale(5.f, 5.f);
 	wall->setCollisionBox(sf::FloatRect(0,0,16,16));
+	collidingActors.push_back(wall.get());
 	worldLayers[Object]->attachChild(std::move(wall));
 
 	// bkg

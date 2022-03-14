@@ -98,3 +98,17 @@ void Mario::updateView()
 	window->setView(view);
 }
 
+void Mario::onCollision(Actor* other)
+{
+	std::cout << "Mario Box: " << getCollisionBox().left << " , " 
+		<< getCollisionBox().width << " , " 
+		<< getCollisionBox().top << " , " 
+		<< getCollisionBox().height << std::endl;
+
+	std::cout << "Wall Box: " << other->getCollisionBox().left << " , " 
+		<< other->getCollisionBox().width << " , " 
+		<< other->getCollisionBox().top << " , " 
+		<< other->getCollisionBox().height << std::endl;
+
+}
+
