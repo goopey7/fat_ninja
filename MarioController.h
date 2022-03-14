@@ -7,7 +7,7 @@
 class MarioController : public PlayerController
 {
 	public:
-		MarioController();
+		MarioController(sf::RenderWindow* window);
 		~MarioController();
 
 		enum Action
@@ -19,11 +19,13 @@ class MarioController : public PlayerController
 			ShowPos,
 			ShowVel,
 			ShowDir,
+			Teleport,
 		};
 
 	protected:
 
 	private:
+		sf::RenderWindow* window;
 		
 };
 

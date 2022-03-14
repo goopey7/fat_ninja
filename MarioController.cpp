@@ -26,7 +26,8 @@ struct MarioMover
 	Direction dir;
 };
 
-MarioController::MarioController()
+MarioController::MarioController(sf::RenderWindow* window)
+	: window(window)
 {
 	keyBindings[sf::Keyboard::Space] = Jump;
 	keyBindings[sf::Keyboard::A] = MoveLeft;
@@ -35,6 +36,8 @@ MarioController::MarioController()
 	keyBindings[sf::Keyboard::P] = ShowPos;
 	keyBindings[sf::Keyboard::V] = ShowVel;
 	keyBindings[sf::Keyboard::Z] = ShowDir;
+
+	mouseBindings[sf::Mouse::Left] = Teleport;
 
 	// Pressed Actions
 	pressedActions[Jump].action = derivedAction<Mario>
@@ -71,6 +74,13 @@ MarioController::MarioController()
 			}
 			);
 
+	pressedActions[Teleport].action = 
+		[window] (Node& node, const float dt)
+		{
+			node.setPosition(sf::Mouse::getPosition(*window).x,sf::Mouse::getPosition(*window).y);
+		};
+
+	// Released Actions
 	std::function<void(Node&,const float dt)> marioStop = derivedAction<Mario>
 		(
 		 [this] (Mario& mario, const float dt)
@@ -92,9 +102,6 @@ MarioController::MarioController()
 	releasedActions[MoveLeft].action = marioStop;
 	releasedActions[MoveRight].action = marioStop;
 
-	// Held Actions
-
-	// Released Actions
 	releasedActions[Crouch].action = derivedAction<Mario>
 		(
 		 [] (Mario& mario,const float dt)
