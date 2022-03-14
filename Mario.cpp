@@ -61,7 +61,7 @@ void Mario::updateCurrent(const float dt)
 
 unsigned int Mario::getCategory() const
 {
-	return Category::PlayerCharacter;
+	return Category::PlayerCharacter | Category::Actor;
 }
 
 void Mario::jump()

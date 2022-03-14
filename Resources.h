@@ -11,6 +11,7 @@ namespace Textures
 		Tux,
 		Terminal,
 		Mario,
+		Brick,
 	};
 }
 namespace Fonts

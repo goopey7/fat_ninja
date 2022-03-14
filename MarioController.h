@@ -20,6 +20,7 @@ class MarioController : public PlayerController
 			ShowVel,
 			ShowDir,
 			Teleport,
+			DebugToggle,
 		};
 
 	protected:

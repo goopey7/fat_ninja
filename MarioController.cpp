@@ -36,6 +36,7 @@ MarioController::MarioController(sf::RenderWindow* window)
 	keyBindings[sf::Keyboard::P] = ShowPos;
 	keyBindings[sf::Keyboard::V] = ShowVel;
 	keyBindings[sf::Keyboard::Z] = ShowDir;
+	keyBindings[sf::Keyboard::B] = DebugToggle;
 
 	mouseBindings[sf::Mouse::Left] = Teleport;
 
@@ -82,6 +83,13 @@ MarioController::MarioController(sf::RenderWindow* window)
 			mario.updateView();
 		});
 
+	pressedActions[DebugToggle].action = derivedAction<Actor>(
+			[] (Actor& actor, const float dt)
+			{
+				actor.toggleDebugMode();
+			}
+			);
+
 	// Released Actions
 	std::function<void(Node&,const float dt)> marioStop = derivedAction<Mario>
 		(
@@ -125,6 +133,7 @@ MarioController::MarioController(sf::RenderWindow* window)
 	{
 		binding.second.category = Category::PlayerCharacter;
 	}
+	pressedActions[DebugToggle].category = Category::Actor;
 }
 
 MarioController::~MarioController()
