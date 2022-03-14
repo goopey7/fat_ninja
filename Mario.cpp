@@ -6,8 +6,6 @@
 Mario::Mario(const TextureHolder& textures, sf::RenderWindow* window)
 	: Actor(textures), window(window), view(window->getView())
 {
-	setPosition(50.f,50.f);
-
 	for(int i=0; i<walkFrames; i++)
 		walk.addFrame(sf::IntRect(i*walkWidth,0,walkWidth,walkHeight));
 	walk.setFrameSpeed(walkSpeed);
@@ -15,6 +13,10 @@ Mario::Mario(const TextureHolder& textures, sf::RenderWindow* window)
 	sprite.setTexture(textures.get(Textures::Mario));
 	sprite.setTextureRect(walk.getCurrentFrame());
 	sprite.setScale({10.f,10.f});
+
+	collisionBox.width = sprite.getTextureRect().width * sprite.getScale().x;
+	collisionBox.height = sprite.getTextureRect().height * sprite.getScale().y;
+	box.setSize(sf::Vector2f(collisionBox.width,collisionBox.height));
 }
 
 void Mario::handleAnimations(const float dt)
