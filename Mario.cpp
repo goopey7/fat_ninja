@@ -3,8 +3,8 @@
 #include "Mario.h"
 #include <cmath>
 
-Mario::Mario(const TextureHolder& textures)
-	: Actor(textures)
+Mario::Mario(const TextureHolder& textures, sf::RenderWindow* window)
+	: Actor(textures), window(window), view(window->getView())
 {
 	setPosition(50.f,50.f);
 
@@ -23,6 +23,7 @@ void Mario::handleAnimations(const float dt)
 	{
 		walk.play();
 		walk.animate(dt);
+		updateView();
 	}
 	else
 	{
@@ -86,5 +87,12 @@ short Mario::getDir()
 std::string Mario::getVelocity()
 {
 	return std::to_string(velocity.x) + " , " + std::to_string(velocity.y) + '\n';
+}
+
+void Mario::updateView()
+{
+	sf::View view = window->getView();
+	view.setCenter(getWorldPosition());
+	window->setView(view);
 }
 

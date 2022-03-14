@@ -9,7 +9,7 @@
 class Mario : public Actor
 {
 	public:
-		Mario(const TextureHolder& textures);
+		Mario(const TextureHolder& textures, sf::RenderWindow* window);
 
 		void handleAnimations(const float dt);
 		virtual void updateCurrent(const float dt) override;
@@ -20,6 +20,7 @@ class Mario : public Actor
 		void setDir(int dir);
 		short getDir();
 		std::string getVelocity();
+		void updateView();
 
 	private:
 		sf::Vector2f dir = {0.f,0.f};
@@ -32,5 +33,8 @@ class Mario : public Actor
 		int walkHeight = 21;
 		int walkFrames = 4;
 		float walkSpeed = 0.1f;
+
+		sf::RenderWindow* window;
+		sf::View view;
 };
 

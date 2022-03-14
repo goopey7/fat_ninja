@@ -36,6 +36,6 @@ class Game
 		const int TicksPerSec = 60;
 
 		Level* world;
-		MarioController pc;
+		MarioController* pc;
 };
 

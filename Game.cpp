@@ -33,10 +33,12 @@ Game::Game()
 { 
 	initWindow();
 	world = new Level(*window);
+	pc = new MarioController(window);
 }
 
 Game::~Game()
 {
+	delete pc;
 	delete window;
 	delete world;
 }
@@ -47,11 +49,11 @@ void Game::handleEvents()
 	sf::Event ev;
 	while(window->pollEvent(ev))
 	{
-		pc.handleEvent(ev,commands);
+		pc->handleEvent(ev,commands);
 		if(ev.type == sf::Event::Closed)
 			window->close();
 	}
-	pc.handleHeldInput(commands);
+	pc->handleHeldInput(commands);
 }
 
 void Game::update(const float dt)

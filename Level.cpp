@@ -18,8 +18,8 @@ void Level::loadTextures()
 
 void Level::buildGraph()
 {
-	// Tux Entity
-	std::unique_ptr<Mario> mario(new Mario(textures));
+	// Player Entity
+	std::unique_ptr<Mario> mario(new Mario(textures,&window));
 	mario->setPosition(spawnPos);
 	worldLayers[Foreground]->attachChild(std::move(mario));
 

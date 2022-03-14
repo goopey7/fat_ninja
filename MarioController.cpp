@@ -74,11 +74,13 @@ MarioController::MarioController(sf::RenderWindow* window)
 			}
 			);
 
-	pressedActions[Teleport].action = 
-		[window] (Node& node, const float dt)
+	pressedActions[Teleport].action = derivedAction<Mario>(
+		[window] (Mario& mario, const float dt)
 		{
-			node.setPosition(sf::Mouse::getPosition(*window).x,sf::Mouse::getPosition(*window).y);
-		};
+			sf::Vector2f pos = window->mapPixelToCoords(sf::Mouse::getPosition(*window));
+			mario.setPosition(pos);
+			mario.updateView();
+		});
 
 	// Released Actions
 	std::function<void(Node&,const float dt)> marioStop = derivedAction<Mario>
