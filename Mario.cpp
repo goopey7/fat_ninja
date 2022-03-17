@@ -20,8 +20,8 @@ Mario::Mario(const TextureHolder& textures, sf::RenderWindow* window)
 	collisionBox.width = sprite.getTextureRect().width * sprite.getScale().x - collisionBox.left;
 	collisionBox.height = sprite.getTextureRect().height * sprite.getScale().y - collisionBox.top;
 
-	collisionBox.width -= 40.f;
-	collisionBox.height -= 20.f;
+	collisionBox.width -= 50.f;
+	collisionBox.height -= 0.f;
 
 	box.setSize(sf::Vector2f(collisionBox.width,collisionBox.height));
 	box.setPosition(collisionBox.left,collisionBox.top);
@@ -30,7 +30,7 @@ Mario::Mario(const TextureHolder& textures, sf::RenderWindow* window)
 
 void Mario::handleAnimations(const float dt)
 {	
-	if(Vector::size(velocity) != 0.f)
+	if(fabs(velocity.x) != 0.f)
 	{
 		walk.play();
 		walk.animate(dt);
@@ -51,13 +51,20 @@ void Mario::handleAnimations(const float dt)
 void Mario::updateCurrent(const float dt)
 {
 	handleAnimations(dt);
+
+	if(!bOnFloor)
+	{
+		// APPLY GRAVITY
+		velocity.y += gravity*dt;
+	}
+	else velocity.y = 0.f;
 	if(fabs(velocity.x) < maxSpeed)
 	{
-		velocity += dir * acceleration * dt;
+		velocity.x += dir.x * acceleration * dt;
 	}
 	else
 	{
-		velocity = dir * maxSpeed;
+		velocity.x = dir.x * maxSpeed;
 	}
 
 	if (fabs(velocity.x) < fabs(acceleration) && dir.x == 0.f)
@@ -76,6 +83,8 @@ unsigned int Mario::getCategory() const
 
 void Mario::jump()
 {
+	bOnFloor = false;
+	velocity.y = -jumpSpeed;
 }
 
 void Mario::crouch()
@@ -108,18 +117,47 @@ void Mario::updateView()
 	window->setView(view);
 }
 
-void Mario::onCollision(Actor* other, unsigned int sides)
+void Mario::onCollisionEnter(Actor* other, unsigned int sides)
 {
 	sf::Vector2f pos = getWorldPosition();
 	sf::Vector2f otherPos = other->getWorldPosition();
 
-	if(sides == gf::Side::Right)
+	if(sides & gf::Side::Bottom)
 	{
-		setPosition(otherPos.x - getCollisionBox().width - getCollisionBox().left - 1.f, getWorldPosition().y);
+		setPosition(getWorldPosition().x, otherPos.y - getCollisionBox().height - getCollisionBox().top);
+		bOnFloor = true;
 	}
-	else if (sides == gf::Side::Left)
+	else if(sides & gf::Side::Top)
 	{
-		setPosition(otherPos.x-getCollisionBox().left+other->getCollisionBox().width + 1.f, getWorldPosition().y);
 	}
+}
+
+void Mario::whileColliding(Actor* other, unsigned int sides)
+{
+	sf::Vector2f pos = getWorldPosition();
+	sf::Vector2f otherPos = other->getWorldPosition();
+	if(!(sides & gf::Side::Bottom))
+	{
+		if(sides & gf::Side::Right)
+		{
+			setPosition(otherPos.x - getCollisionBox().width - getCollisionBox().left - 1.f, getWorldPosition().y);
+		}
+		else if (sides & gf::Side::Left)
+		{
+			setPosition(otherPos.x-getCollisionBox().left+other->getCollisionBox().width + 1.f, getWorldPosition().y);
+		}
+	}
+	if(sides & (gf::Side::Bottom & gf::Side::Left | gf::Side::Right))
+	{
+		if(sides & gf::Side::Left)
+		{
+			setPosition(otherPos.x-getCollisionBox().left+other->getCollisionBox().width + 1.f, getWorldPosition().y);
+		}
+	}
+}
+
+void Mario::onCollisionExit(Actor* other)
+{
+	bOnFloor = false;
 }
 

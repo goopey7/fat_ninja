@@ -14,7 +14,9 @@ class Mario : public Actor
 		void handleAnimations(const float dt);
 		virtual void updateCurrent(const float dt) override;
 		virtual unsigned int getCategory() const override;
-		virtual void onCollision(Actor* other, unsigned int sides) override;
+		virtual void onCollisionEnter(Actor* other, unsigned int sides) override;
+		virtual void whileColliding(Actor* other, unsigned int sides) override;
+		virtual void onCollisionExit(Actor* other) override;
 		void jump();
 		void crouch();
 		void stopCrouch();
@@ -25,6 +27,9 @@ class Mario : public Actor
 
 	private:
 		sf::Vector2f dir = {0.f,0.f};
+		float gravity = 98.1;
+		float jumpSpeed = 150.f;
+		bool bOnFloor = false;
 		sf::Vector2f velocity = {0.f,0.f};
 		float maxSpeed = 120.f;
 		float acceleration = 300.f;
