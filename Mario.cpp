@@ -14,9 +14,18 @@ Mario::Mario(const TextureHolder& textures, sf::RenderWindow* window)
 	sprite.setTextureRect(walk.getCurrentFrame());
 	sprite.setScale({10.f,10.f});
 
-	collisionBox.width = sprite.getTextureRect().width * sprite.getScale().x;
-	collisionBox.height = sprite.getTextureRect().height * sprite.getScale().y;
+	collisionBox.left = 30.f;
+	collisionBox.top = 30.f;
+
+	collisionBox.width = sprite.getTextureRect().width * sprite.getScale().x - collisionBox.left;
+	collisionBox.height = sprite.getTextureRect().height * sprite.getScale().y - collisionBox.top;
+
+	collisionBox.width -= 40.f;
+	collisionBox.height -= 20.f;
+
 	box.setSize(sf::Vector2f(collisionBox.width,collisionBox.height));
+	box.setPosition(collisionBox.left,collisionBox.top);
+	updateView();
 }
 
 void Mario::handleAnimations(const float dt)
@@ -55,8 +64,9 @@ void Mario::updateCurrent(const float dt)
 	{
 		velocity.x = 0.f;
 	}
-		
-	move(velocity*dt);
+
+	if(dir.x >= 0.f || dir.x <=0.f)
+		move(velocity*dt);
 }
 
 unsigned int Mario::getCategory() const
@@ -98,17 +108,18 @@ void Mario::updateView()
 	window->setView(view);
 }
 
-void Mario::onCollision(Actor* other)
+void Mario::onCollision(Actor* other, unsigned int sides)
 {
-	std::cout << "Mario Box: " << getCollisionBox().left << " , " 
-		<< getCollisionBox().width << " , " 
-		<< getCollisionBox().top << " , " 
-		<< getCollisionBox().height << std::endl;
+	sf::Vector2f pos = getWorldPosition();
+	sf::Vector2f otherPos = other->getWorldPosition();
 
-	std::cout << "Wall Box: " << other->getCollisionBox().left << " , " 
-		<< other->getCollisionBox().width << " , " 
-		<< other->getCollisionBox().top << " , " 
-		<< other->getCollisionBox().height << std::endl;
-
+	if(sides == gf::Side::Right)
+	{
+		setPosition(otherPos.x - getCollisionBox().width - getCollisionBox().left - 1.f, getWorldPosition().y);
+	}
+	else if (sides == gf::Side::Left)
+	{
+		setPosition(otherPos.x-getCollisionBox().left+other->getCollisionBox().width + 1.f, getWorldPosition().y);
+	}
 }
 

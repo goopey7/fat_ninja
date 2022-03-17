@@ -30,8 +30,8 @@ void Level::buildGraph()
 	wall->setTexture(Textures::Brick);
 	wall->setPosition(spawnPos+sf::Vector2f(500.f,0.f));
 	wall->setTextureRect(sf::IntRect(0,0,16,16));
-	wall->setScale(5.f, 5.f);
 	wall->setCollisionBox(sf::FloatRect(0,0,16,16));
+	wall->scale(5.f, 5.f);
 	collidingActors.push_back(wall.get());
 	worldLayers[Object]->attachChild(std::move(wall));
 

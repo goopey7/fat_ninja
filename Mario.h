@@ -14,7 +14,7 @@ class Mario : public Actor
 		void handleAnimations(const float dt);
 		virtual void updateCurrent(const float dt) override;
 		virtual unsigned int getCategory() const override;
-		virtual void onCollision(Actor* other) override;
+		virtual void onCollision(Actor* other, unsigned int sides) override;
 		void jump();
 		void crouch();
 		void stopCrouch();
