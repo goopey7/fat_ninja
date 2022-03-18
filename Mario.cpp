@@ -34,7 +34,6 @@ void Mario::handleAnimations(const float dt)
 	{
 		walk.play();
 		walk.animate(dt);
-		updateView();
 	}
 	else
 	{
@@ -74,6 +73,7 @@ void Mario::updateCurrent(const float dt)
 
 	if(dir.x >= 0.f || dir.x <=0.f)
 		move(velocity*dt);
+	updateView();
 }
 
 unsigned int Mario::getCategory() const
@@ -119,45 +119,14 @@ void Mario::updateView()
 
 void Mario::onCollisionEnter(Actor* other, unsigned int sides)
 {
-	sf::Vector2f pos = getWorldPosition();
-	sf::Vector2f otherPos = other->getWorldPosition();
-
-	if(sides & gf::Side::Bottom)
-	{
-		setPosition(getWorldPosition().x, otherPos.y - getCollisionBox().height - getCollisionBox().top);
-		bOnFloor = true;
-	}
-	else if(sides & gf::Side::Top)
-	{
-	}
+	std::cout << "Mario collided with " << other->getCategory() << '\n';
 }
 
 void Mario::whileColliding(Actor* other, unsigned int sides)
 {
-	sf::Vector2f pos = getWorldPosition();
-	sf::Vector2f otherPos = other->getWorldPosition();
-	if(!(sides & gf::Side::Bottom))
-	{
-		if(sides & gf::Side::Right)
-		{
-			setPosition(otherPos.x - getCollisionBox().width - getCollisionBox().left - 1.f, getWorldPosition().y);
-		}
-		else if (sides & gf::Side::Left)
-		{
-			setPosition(otherPos.x-getCollisionBox().left+other->getCollisionBox().width + 1.f, getWorldPosition().y);
-		}
-	}
-	if(sides & (gf::Side::Bottom & gf::Side::Left | gf::Side::Right))
-	{
-		if(sides & gf::Side::Left)
-		{
-			setPosition(otherPos.x-getCollisionBox().left+other->getCollisionBox().width + 1.f, getWorldPosition().y);
-		}
-	}
 }
 
 void Mario::onCollisionExit(Actor* other)
 {
-	bOnFloor = false;
 }
 
