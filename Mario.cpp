@@ -12,19 +12,24 @@ Mario::Mario(const TextureHolder& textures, sf::RenderWindow* window)
 
 	sprite.setTexture(textures.get(Textures::Mario));
 	sprite.setTextureRect(walk.getCurrentFrame());
-	sprite.setScale({10.f,10.f});
+	sprite.setScale({1.2f,1.2f});
 
-	collisionBox.left = 30.f;
-	collisionBox.top = 30.f;
+	collisionBox.left = 3.f;
+	collisionBox.top = 3.f;
 
 	collisionBox.width = sprite.getTextureRect().width * sprite.getScale().x - collisionBox.left;
 	collisionBox.height = sprite.getTextureRect().height * sprite.getScale().y - collisionBox.top;
 
-	collisionBox.width -= 50.f;
+	collisionBox.width -= 5.f;
 	collisionBox.height -= 0.f;
 
 	box.setSize(sf::Vector2f(collisionBox.width,collisionBox.height));
 	box.setPosition(collisionBox.left,collisionBox.top);
+
+	sf::View view = window->getView();
+	view.setSize(240.f*1.5f, 135.f*1.5f);
+	window->setView(view);
+
 	updateView();
 }
 
@@ -54,7 +59,7 @@ void Mario::updateCurrent(const float dt)
 	if(!bOnFloor)
 	{
 		// APPLY GRAVITY
-		velocity.y += gravity*dt;
+	//	velocity.y += gravity*dt;
 	}
 	else velocity.y = 0.f;
 	if(fabs(velocity.x) < maxSpeed)

@@ -7,6 +7,7 @@ Level::Level(sf::RenderWindow& window)
 {
 	loadTextures();
 	buildGraph();
+	loadFromFile("untitled.json", textures);
 }
 
 void Level::loadTextures()
@@ -14,15 +15,16 @@ void Level::loadTextures()
 	// Load Textures Here
 	textures.load(Textures::Mario,"art/marioSheet.png");
 	textures.load(Textures::Terminal, "art/bkg.jpg");
-	textures.load(Textures::Brick,"art/bricks.png");
 }
 
 void Level::buildGraph()
 {
 	// Player Entity
 	std::unique_ptr<Mario> mario(new Mario(textures,&window));
-	mario->setPosition(spawnPos);
+	mario->setPosition(sf::Vector2f(600.f,50.f));
 	addNode(&mario,Entity,true);
+
+	/*
 
 	// Test Wall
 	for(int i=0;i<10;i++)
@@ -43,6 +45,7 @@ void Level::buildGraph()
 		wall->scale(5.f, 5.f);
 		addNode(&wall,Object,true);
 	}
+	*/
 	
 	// bkg
 	std::unique_ptr<SpriteNode> bkg(new SpriteNode(textures.get(Textures::Terminal)));
