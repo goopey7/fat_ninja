@@ -59,7 +59,7 @@ void Mario::updateCurrent(const float dt)
 	if(!bOnFloor)
 	{
 		// APPLY GRAVITY
-	//	velocity.y += gravity*dt;
+		velocity.y += gravity*dt;
 	}
 	else velocity.y = 0.f;
 	if(fabs(velocity.x) < maxSpeed)
@@ -76,8 +76,12 @@ void Mario::updateCurrent(const float dt)
 		velocity.x = 0.f;
 	}
 
-	if(dir.x >= 0.f || dir.x <=0.f)
-		move(velocity*dt);
+	if(!((dir.x >= 0.f && bCanMoveRight) || (dir.x <=0.f && bCanMoveLeft)))
+	{
+		velocity.x = 0.f;
+	}
+	move(velocity*dt);
+	displacementFromLastFrame = velocity*dt;
 	updateView();
 }
 
@@ -124,14 +128,44 @@ void Mario::updateView()
 
 void Mario::onCollisionEnter(Actor* other, unsigned int sides)
 {
-	std::cout << "Mario collided with " << other->getCategory() << '\n';
+	move(-displacementFromLastFrame);
+	if(sides & gf::Side::Top && !bOnFloor)
+	{
+		velocity.y = 0.f;
+	}
+	else if(sides & gf::Side::Bottom)
+	{
+		bOnFloor = true;
+		//setPosition(getPosition().x,other->getPosition().y-sprite.getTextureRect().height);
+	}
+	
+	else if(sides & gf::Side::Right)
+	{
+		bCanMoveRight=false;
+	}
+	else if(sides & gf::Side::Left)
+	{
+		bCanMoveLeft=false;
+	}
 }
 
 void Mario::whileColliding(Actor* other, unsigned int sides)
 {
 }
 
-void Mario::onCollisionExit(Actor* other)
+void Mario::onCollisionExit(Actor* other, unsigned int sides)
 {
+	if(sides & gf::Side::Bottom)
+	{
+		bOnFloor = false;
+	}
+	else if(sides & gf::Side::Right)
+	{
+		bCanMoveRight = true;
+	}
+	else if(sides & gf::Side::Left)
+	{
+		bCanMoveLeft = true;
+	}
 }
 

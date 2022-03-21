@@ -21,7 +21,7 @@ void Level::buildGraph()
 {
 	// Player Entity
 	std::unique_ptr<Mario> mario(new Mario(textures,&window));
-	mario->setPosition(sf::Vector2f(600.f,50.f));
+	mario->setPosition(sf::Vector2f(0.f,-50.f));
 	addNode(&mario,Entity,true);
 
 	/*
