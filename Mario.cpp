@@ -62,6 +62,7 @@ void Mario::updateCurrent(const float dt)
 		velocity.y += gravity*dt;
 	}
 	else velocity.y = 0.f;
+
 	if(fabs(velocity.x) < maxSpeed)
 	{
 		velocity.x += dir.x * acceleration * dt;
@@ -76,7 +77,7 @@ void Mario::updateCurrent(const float dt)
 		velocity.x = 0.f;
 	}
 
-	if(!((dir.x >= 0.f && bCanMoveRight) || (dir.x <=0.f && bCanMoveLeft)))
+	if(!(dir.x >= 0.f && bCanMoveRight || dir.x <=0.f && bCanMoveLeft))
 	{
 		velocity.x = 0.f;
 	}
@@ -99,7 +100,6 @@ void Mario::jump()
 void Mario::crouch()
 {
 }
-
 void Mario::stopCrouch()
 {
 }
@@ -126,44 +126,53 @@ void Mario::updateView()
 	window->setView(view);
 }
 
-void Mario::onCollisionEnter(Actor* other, unsigned int sides)
+void Mario::onCollisionEnter(Actor* other, unsigned int sides, const sf::FloatRect& overlap)
 {
-	move(-displacementFromLastFrame);
-	if(sides & gf::Side::Top && !bOnFloor)
+	//std::cout << overlap.left << " , " << overlap.top << " , " << overlap.width << " , " << overlap.height << '\n';
+
+	if(sides & gf::Side::Bottom && !bOnFloor)
+	{
+		bOnFloor = true;
+	}
+	if(sides & gf::Side::Top)
 	{
 		velocity.y = 0.f;
 	}
-	else if(sides & gf::Side::Bottom)
+	if(sides & gf::Side::Bottom && bOnFloor)
 	{
-		bOnFloor = true;
-		//setPosition(getPosition().x,other->getPosition().y-sprite.getTextureRect().height);
+		setPosition(getPosition().x, overlap.top - sprite.getGlobalBounds().height - getCollisionBox().height - (overlap.top - overlap.height));
 	}
+}
+
+void Mario::whileColliding(Actor* other, unsigned int sides, const sf::FloatRect& overlap)
+{
+	if((bOnFloor && other->getCollisionBox().top + other->getPosition().y < getPosition().y + getCollisionBox().top + getCollisionBox().width)
+			|| (!bOnFloor))
+	{
+		if(sides & gf::Side::Right)
+		{
+			bCanMoveRight=false;
+		}
+		if(sides & gf::Side::Left)
+		{
+			bCanMoveLeft=false;
+		}
+	}
+}
+
+void Mario::onCollisionExit(Actor* other, unsigned int sides, const sf::FloatRect& overlap)
+{
 	
-	else if(sides & gf::Side::Right)
-	{
-		bCanMoveRight=false;
-	}
-	else if(sides & gf::Side::Left)
-	{
-		bCanMoveLeft=false;
-	}
-}
-
-void Mario::whileColliding(Actor* other, unsigned int sides)
-{
-}
-
-void Mario::onCollisionExit(Actor* other, unsigned int sides)
-{
 	if(sides & gf::Side::Bottom)
 	{
 		bOnFloor = false;
 	}
-	else if(sides & gf::Side::Right)
+	if(sides & gf::Side::Right)
 	{
 		bCanMoveRight = true;
 	}
-	else if(sides & gf::Side::Left)
+
+	if(sides & gf::Side::Left)
 	{
 		bCanMoveLeft = true;
 	}
