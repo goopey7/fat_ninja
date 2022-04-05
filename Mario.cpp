@@ -93,8 +93,9 @@ unsigned int Mario::getCategory() const
 
 void Mario::jump()
 {
-	bOnFloor = false;
 	velocity.y = -jumpSpeed;
+	move(0.f,-.2f);
+	bOnFloor = false;
 }
 
 void Mario::crouch()
@@ -124,57 +125,5 @@ void Mario::updateView()
 	sf::View view = window->getView();
 	view.setCenter(getWorldPosition());
 	window->setView(view);
-}
-
-void Mario::onCollisionEnter(Actor* other, unsigned int sides, const sf::FloatRect& overlap)
-{
-	//std::cout << overlap.left << " , " << overlap.top << " , " << overlap.width << " , " << overlap.height << '\n';
-
-	if(sides & gf::Side::Bottom && !bOnFloor)
-	{
-		bOnFloor = true;
-	}
-	if(sides & gf::Side::Top)
-	{
-		velocity.y = 0.f;
-	}
-	if(sides & gf::Side::Bottom && bOnFloor)
-	{
-		setPosition(getPosition().x, overlap.top - sprite.getGlobalBounds().height - getCollisionBox().height - (overlap.top - overlap.height));
-	}
-}
-
-void Mario::whileColliding(Actor* other, unsigned int sides, const sf::FloatRect& overlap)
-{
-	if((bOnFloor && other->getCollisionBox().top + other->getPosition().y < getPosition().y + getCollisionBox().top + getCollisionBox().width)
-			|| (!bOnFloor))
-	{
-		if(sides & gf::Side::Right)
-		{
-			bCanMoveRight=false;
-		}
-		if(sides & gf::Side::Left)
-		{
-			bCanMoveLeft=false;
-		}
-	}
-}
-
-void Mario::onCollisionExit(Actor* other, unsigned int sides, const sf::FloatRect& overlap)
-{
-	
-	if(sides & gf::Side::Bottom)
-	{
-		bOnFloor = false;
-	}
-	if(sides & gf::Side::Right)
-	{
-		bCanMoveRight = true;
-	}
-
-	if(sides & gf::Side::Left)
-	{
-		bCanMoveLeft = true;
-	}
 }
 

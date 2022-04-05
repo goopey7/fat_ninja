@@ -14,9 +14,6 @@ class Mario : public Actor
 		void handleAnimations(const float dt);
 		virtual void updateCurrent(const float dt) override;
 		virtual unsigned int getCategory() const override;
-		virtual void onCollisionEnter(Actor* other, unsigned int sides, const sf::FloatRect& overlap) override;
-		virtual void whileColliding(Actor* other, unsigned int sides, const sf::FloatRect& overlap) override;
-		virtual void onCollisionExit(Actor* other, unsigned int sides, const sf::FloatRect& overlap) override;
 		void jump();
 		void crouch();
 		void stopCrouch();
