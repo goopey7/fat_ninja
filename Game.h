@@ -12,7 +12,6 @@
 #include <SFML/Window.hpp>
 
 #include "Level.h"
-#include "MarioController.h"
 
 // Game/App wrapper
 class Game
@@ -36,6 +35,5 @@ class Game
 		const int TicksPerSec = 60;
 
 		Level* world;
-		MarioController* pc;
 };
 

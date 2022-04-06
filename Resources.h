@@ -8,10 +8,8 @@ namespace Textures
 	enum ID
 	{
 		// insert texture IDs here
-		Tux,
-		Terminal,
-		Mario,
-		Brick,
+		Box,
+		Bkg,
 	};
 }
 namespace Fonts

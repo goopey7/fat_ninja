@@ -7,50 +7,39 @@ Level::Level(sf::RenderWindow& window)
 {
 	loadTextures();
 	buildGraph();
-	loadFromFile("untitled.json", textures);
 }
 
 void Level::loadTextures()
 {
 	// Load Textures Here
-	textures.load(Textures::Mario,"art/marioSheet.png");
-	textures.load(Textures::Terminal, "art/bkg.jpg");
+	textures.load(Textures::Box,"box.jpeg");
+	textures.load(Textures::Bkg, "bkg.jpg");
 }
 
 void Level::buildGraph()
 {
-	// Player Entity
-	std::unique_ptr<Mario> mario(new Mario(textures,&window));
-	mario->setPosition(sf::Vector2f(0.f,-50.f));
-	addNode(&mario,Entity,true);
+	// RECTANGLE
+	std::unique_ptr<Box> box(new Box(textures,&window));
+	box->setTexture(Textures::Box);
+	sf::Vector2u textureSize = box->getTextureSize();
+	box->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));
+	box->setPosition(window.getSize().x/2.f,window.getSize().y/2.f);
+	addNode(&box,Entity,true);
 
+	// MOUSE CONTROLLED RECTANGLE
 	/*
-
-	// Test Wall
-	for(int i=0;i<10;i++)
-	{
-		std::unique_ptr<Actor> floor(new Actor(textures));
-		floor->setTexture(Textures::Brick);
-		floor->setPosition(spawnPos+sf::Vector2f(i*16*5+500.f,0.f));
-		floor->setTextureRect(sf::IntRect(0,0,16,16));
-		floor->setCollisionBox(sf::FloatRect(0,0,16,16));
-		floor->scale(5.f, 5.f);
-		addNode(&floor,Object,true);
-
-		std::unique_ptr<Actor> wall(new Actor(textures));
-		wall->setTexture(Textures::Brick);
-		wall->setPosition(spawnPos+sf::Vector2f(16*5*10+500.f,(i)*-16*5));
-		wall->setTextureRect(sf::IntRect(0,0,16,16));
-		wall->setCollisionBox(sf::FloatRect(0,0,16,16));
-		wall->scale(5.f, 5.f);
-		addNode(&wall,Object,true);
-	}
+	std::unique_ptr<Box> mBox(new Box(textures,&window));
+	mBox->setTexture(Textures::Box);
+	textureSize = mBox->getTextureSize();
+	mBox->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));
+	mBox->followMouse();
+	mBox->setOrigin(100.f,100.f);
+	addNode(&mBox,Entity,true);
 	*/
-	
+
 	// bkg
-	std::unique_ptr<SpriteNode> bkg(new SpriteNode(textures.get(Textures::Terminal)));
-	bkg->setPosition(0.f,0.f);
-	bkg->scale(4.f,4.f);
+	std::unique_ptr<SpriteNode> bkg(new SpriteNode(textures.get(Textures::Bkg)));
 	addNode(&bkg,Background);
+	
 }
 
