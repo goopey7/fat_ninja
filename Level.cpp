@@ -25,6 +25,7 @@ void Level::buildGraph()
 	box->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));
 	box->setPosition(300.f,700.f);
 	box->followMouse();
+	box->followKbd();
 	box->toggleDebugMode();
 	addNode(&box,Entity,true,true);
 
@@ -32,7 +33,7 @@ void Level::buildGraph()
 	box2->setTexture(Textures::Bkg);
 	box2->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));
 	box2->setTextureRect(sf::IntRect(0.f,0.f,textureSize.x,textureSize.y));
-	box2->setPosition(500.f,50.f);
+	box2->setPosition(1000.f,600.f);
 	box2->toggleDebugMode();
 	addNode(&box2,Entity,true);
 }
