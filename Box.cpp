@@ -21,6 +21,11 @@ void Box::updateCurrent(const float dt)
 			dir = Vector::normalize(dir);
 			velocity += dir * acceleration * dt;
 		}
+		if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
+		{
+			sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
+			setPosition(mousePos.x,mousePos.y);
+		}
 	}
 	
 	if(bFollowKbd)
