@@ -9,10 +9,24 @@ Box::Box(const TextureHolder& textures, sf::RenderWindow* window)
 
 void Box::updateCurrent(const float dt)
 {
+	Actor::updateCurrent(dt);
+
 	if(bFollowMouse)
 	{
 		sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
 		setPosition(mousePos.x,mousePos.y);
+	}
+	
+	if(bFollowKbd)
+	{
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			velocity.x = -speed;
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			velocity.x = speed;
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+			velocity.y = -speed;
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			velocity.y = speed;
 	}
 }
 
@@ -35,5 +49,10 @@ void Box::onCollisionExit()
 void Box::followMouse()
 {
 	bFollowMouse = true;
+}
+
+void Box::followKbd()
+{
+	bFollowKbd = true;
 }
 

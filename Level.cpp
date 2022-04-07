@@ -23,23 +23,17 @@ void Level::buildGraph()
 	box->setTexture(Textures::Box);
 	sf::Vector2u textureSize = box->getTextureSize();
 	box->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));
-	box->setPosition(window.getSize().x/2.f,window.getSize().y/2.f);
-	addNode(&box,Entity,true);
+	box->setPosition(300.f,700.f);
+	box->followKbd();
+	box->toggleDebugMode();
+	addNode(&box,Entity,true,true);
 
-	// MOUSE CONTROLLED RECTANGLE
-	/*
-	std::unique_ptr<Box> mBox(new Box(textures,&window));
-	mBox->setTexture(Textures::Box);
-	textureSize = mBox->getTextureSize();
-	mBox->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));
-	mBox->followMouse();
-	mBox->setOrigin(100.f,100.f);
-	addNode(&mBox,Entity,true);
-	*/
-
-	// bkg
-	std::unique_ptr<SpriteNode> bkg(new SpriteNode(textures.get(Textures::Bkg)));
-	addNode(&bkg,Background);
-	
+	std::unique_ptr<Box> box2(new Box(textures,&window));
+	box2->setTexture(Textures::Bkg);
+	box2->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));
+	box2->setTextureRect(sf::IntRect(0.f,0.f,textureSize.x,textureSize.y));
+	box2->setPosition(500.f,50.f);
+	box2->toggleDebugMode();
+	addNode(&box2,Entity,true);
 }
 
