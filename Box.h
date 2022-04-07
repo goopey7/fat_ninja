@@ -14,10 +14,11 @@ class Box : public Actor
 		virtual void onCollisionExit() override;
 		void followMouse();
 		void followKbd();
+		void stopKbd();
 	private:
 		sf::RenderWindow* window;
 		bool bFollowMouse = false;
 		bool bFollowKbd = false;
-		float speed = 100.f;
+		float acceleration = 100.f;
 };
 

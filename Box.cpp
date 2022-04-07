@@ -1,6 +1,7 @@
 //Copyright Sam Collier 2022
 
 #include "Box.h"
+#include "gf/Vector.h"
 
 Box::Box(const TextureHolder& textures, sf::RenderWindow* window)
 	: Actor(textures), window(window)
@@ -13,20 +14,25 @@ void Box::updateCurrent(const float dt)
 
 	if(bFollowMouse)
 	{
-		sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
-		setPosition(mousePos.x,mousePos.y);
+		if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
+			sf::Vector2f dir = sf::Vector2f(mousePos) - getWorldPosition();
+			dir = Vector::normalize(dir);
+			velocity += dir * acceleration * dt;
+		}
 	}
 	
 	if(bFollowKbd)
 	{
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-			velocity.x = -speed;
+			velocity.x += -acceleration*dt;
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			velocity.x = speed;
+			velocity.x += acceleration*dt;
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-			velocity.y = -speed;
+			velocity.y += -acceleration*dt;
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-			velocity.y = speed;
+			velocity.y += acceleration*dt;
 	}
 }
 
@@ -54,5 +60,10 @@ void Box::followMouse()
 void Box::followKbd()
 {
 	bFollowKbd = true;
+}
+
+void Box::stopKbd()
+{
+	bFollowKbd = false;
 }
 

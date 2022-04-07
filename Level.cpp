@@ -24,7 +24,7 @@ void Level::buildGraph()
 	sf::Vector2u textureSize = box->getTextureSize();
 	box->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));
 	box->setPosition(300.f,700.f);
-	box->followKbd();
+	box->followMouse();
 	box->toggleDebugMode();
 	addNode(&box,Entity,true,true);
 
