@@ -4,18 +4,41 @@
 
 void Game::initWindow()
 {
-	window = new sf::RenderWindow(sf::VideoMode(1920,1080),title);
-	window->setVerticalSyncEnabled(true);
+	std::ifstream ifs("config/window.cfg");
+	sf::VideoMode windowSize(800,600);
+	bool vSyncEnabled = false;
+	if(ifs.is_open() && ifs.good())
+	{
+		std::getline(ifs,title);
+		ifs >> windowSize.width >> windowSize.height;
+		ifs >> vSyncEnabled;
+	}
+	if(!ifs.good())
+	{
+		windowSize = sf::VideoMode(800,600);
+		vSyncEnabled = false;
+		std::filesystem::create_directory("config");
+	}
+	ifs.close();
+	std::ofstream ofs("config/window.cfg",std::ofstream::out);
+	ofs << title << '\n';
+	ofs << std::to_string(windowSize.width) << " " << std::to_string(windowSize.height) << '\n';
+	ofs << std::to_string(vSyncEnabled);
+	ofs.close();
+	window = new sf::RenderWindow(windowSize,title);
+	window->setVerticalSyncEnabled(vSyncEnabled);
 }
 
 Game::Game()
 { 
 	initWindow();
 	world = new Level(*window);
+	pc = new MarioController(window);
 }
 
 Game::~Game()
 {
+	delete pc;
 	delete window;
 	delete world;
 }
@@ -26,9 +49,11 @@ void Game::handleEvents()
 	sf::Event ev;
 	while(window->pollEvent(ev))
 	{
+		pc->handleEvent(ev,commands);
 		if(ev.type == sf::Event::Closed)
 			window->close();
 	}
+	pc->handleHeldInput(commands);
 }
 
 void Game::update(const float dt)

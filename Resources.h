@@ -10,6 +10,8 @@ namespace Textures
 		// insert texture IDs here
 		Box,
 		Bkg,
+		Mario,
+		Size,
 	};
 }
 namespace Fonts

@@ -16,8 +16,9 @@ void Box::updateCurrent(const float dt)
 	{
 		if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
+			sf::Vector2f camPos = window->getView().getCenter() - sf::Vector2f(window->getSize().x/2.f,window->getSize().y/2.f);
 			sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
-			sf::Vector2f dir = sf::Vector2f(mousePos) - getWorldPosition();
+			sf::Vector2f dir = sf::Vector2f(mousePos) + camPos - getWorldPosition();
 			dir = Vector::normalize(dir);
 			velocity += dir * acceleration * dt;
 		}
@@ -44,17 +45,6 @@ void Box::updateCurrent(const float dt)
 unsigned int Box::getCategory() const
 {
 	return Category::Actor;
-}
-
-void Box::onCollision()
-{
-	sprite.setColor(sf::Color::Red);
-}
-
-
-void Box::onCollisionExit()
-{
-	sprite.setColor(sf::Color::White);
 }
 
 void Box::followMouse()
