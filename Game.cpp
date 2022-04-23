@@ -13,9 +13,9 @@ void Game::initWindow()
 		ifs >> windowSize.width >> windowSize.height;
 		ifs >> vSyncEnabled;
 	}
-	if(!ifs.good())
+	else if(!ifs.good())
 	{
-		windowSize = sf::VideoMode(800,600);
+		windowSize = sf::VideoMode(1920,1080);
 		vSyncEnabled = false;
 		std::filesystem::create_directory("config");
 	}
