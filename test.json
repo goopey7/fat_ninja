@@ -150,7 +150,7 @@
         {
          "columns":27,
          "firstgid":1,
-         "image":"..\/testCollisions\/art\/bricks.png",
+         "image":"art\/bricks.png",
          "imageheight":16,
          "imagewidth":432,
          "margin":0,
