@@ -52,6 +52,13 @@ void Game::handleEvents()
 		pc->handleEvent(ev,commands);
 		if(ev.type == sf::Event::Closed)
 			window->close();
+
+		// Scale view with window size
+		else if(ev.type == sf::Event::Resized)
+		{
+			sf::FloatRect windowRect(0.f,0.f,ev.size.width*viewScale,ev.size.height*viewScale);
+			window->setView(sf::View(windowRect));
+		}
 	}
 	pc->handleHeldInput(commands);
 }

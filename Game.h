@@ -33,7 +33,9 @@ class Game
 		sf::RenderWindow* window;
 
 		// For FixedUpdate
-		const int TicksPerSec = 30;
+		const int TicksPerSec = 60;
+
+		float viewScale = 0.15f;
 
 		Level* world;
 		MarioController* pc;

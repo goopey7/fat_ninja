@@ -25,12 +25,6 @@ Mario::Mario(const TextureHolder& textures, sf::RenderWindow* window)
 
 	box.setSize(sf::Vector2f(collisionBox.width,collisionBox.height));
 	box.setPosition(collisionBox.left,collisionBox.top);
-
-	sf::View view = window->getView();
-	view.setSize(240.f*1.5f, 135.f*1.5f);
-	window->setView(view);
-
-	updateView();
 }
 
 void Mario::handleAnimations(const float dt)
