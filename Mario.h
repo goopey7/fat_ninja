@@ -13,6 +13,7 @@ class Mario : public Actor
 
 		void handleAnimations(const float dt);
 		virtual void updateCurrent(const float dt) override;
+		virtual void fixedUpateCurrent(const float dt) override;
 		virtual unsigned int getCategory() const override;
 		virtual void onCollisionEnter(Actor* other, sf::Vector2f& contactPoint, sf::Vector2f& contactNormal, float& hitTime, const float dt) override;
 		void jump();

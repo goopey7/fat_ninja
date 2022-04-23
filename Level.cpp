@@ -27,7 +27,7 @@ void Level::buildGraph()
 	mario->setTextureRect(sf::IntRect(0.f,0.f,textureSize.x,textureSize.y));
 	mario->setPosition(0.f,-30.f);
 	mario->setIsDynamic(true);
-	addNode(&mario,Entity);
+	addNode(&mario,Tile);
 
 	std::unique_ptr<Box> box(new Box(textures,&window));
 	box->setTexture(Textures::Box);
@@ -38,6 +38,6 @@ void Level::buildGraph()
 	box->followMouse();
 	//box->followKbd();
 	box->setIsDynamic(true);
-	addNode(&box,Entity);
+	addNode(&box,Tile);
 }
 

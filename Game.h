@@ -33,7 +33,7 @@ class Game
 		sf::RenderWindow* window;
 
 		// For FixedUpdate
-		const int TicksPerSec = 60;
+		const int TicksPerSec = 30;
 
 		Level* world;
 		MarioController* pc;

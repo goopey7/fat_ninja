@@ -54,11 +54,15 @@ void Mario::handleAnimations(const float dt)
 
 void Mario::updateCurrent(const float dt)
 {
-	Actor::updateCurrent(dt);
-	updateView();
 	velocity.y += gravity * dt;
 	velocity.x = dir.x * maxSpeed;
 	handleAnimations(dt);
+}
+
+void Mario::fixedUpateCurrent(const float dt)
+{
+	Actor::fixedUpateCurrent(dt);
+	updateView();
 }
 
 unsigned int Mario::getCategory() const
@@ -110,4 +114,6 @@ void Mario::onCollisionEnter(Actor* other, sf::Vector2f& contactPoint, sf::Vecto
 		bCanJump = true;
 	}
 }
+
+
 
