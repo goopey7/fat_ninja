@@ -9,7 +9,7 @@
 class Mario : public Actor
 {
 	public:
-		Mario(const TextureHolder& textures, sf::RenderWindow* window);
+		Mario(const TextureHolder& textures, World* world, sf::RenderWindow* window);
 
 		void handleAnimations(const float dt);
 		virtual void updateCurrent(const float dt) override;

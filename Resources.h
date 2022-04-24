@@ -11,6 +11,7 @@ namespace Textures
 		Box,
 		Bkg,
 		Mario,
+		Shuriken,
 		Size,
 	};
 }

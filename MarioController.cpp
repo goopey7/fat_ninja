@@ -38,7 +38,7 @@ MarioController::MarioController(sf::RenderWindow* window)
 	keyBindings[sf::Keyboard::Z] = ShowDir;
 	keyBindings[sf::Keyboard::B] = DebugToggle;
 
-	mouseBindings[sf::Mouse::Left] = Teleport;
+	mouseBindings[sf::Mouse::Left] = Attack;
 
 	// Pressed Actions
 	pressedActions[Jump].action = derivedAction<Mario>
@@ -75,15 +75,23 @@ MarioController::MarioController(sf::RenderWindow* window)
 			}
 			);
 
-	/*
-    pressedActions[Teleport].action = derivedAction<Mario>(
+	
+    pressedActions[Attack].action = derivedAction<Mario>(
 		[window] (Mario& mario, const float dt)
 		{
-			sf::Vector2f pos = window->mapPixelToCoords(sf::Mouse::getPosition(*window));
-			mario.setPosition(pos);
-			mario.updateView();
+			sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
+			sf::Vector2f mWorldPos = window->mapPixelToCoords(mousePos);
+			std::unique_ptr<Shuriken> shuriken(new Shuriken(mario.getTextures(),mario.getWorld()));
+			shuriken->setTexture(Textures::Shuriken);
+			sf::Vector2u textureSize = shuriken->getTextureSize();
+			shuriken->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));
+			shuriken->setTextureRect(sf::IntRect(0.f,0.f,textureSize.x,textureSize.y));
+			shuriken->setPosition(mario.getWorldPosition());
+			shuriken->setIsDynamic(true);
+			shuriken->setupTarget(mWorldPos);
+			shuriken->setOrigin(textureSize.x/2.f, textureSize.y/2.f);
+			mario.getWorld()->addNode(&shuriken,World::Tile);
 		});
-		*/
 
 	pressedActions[DebugToggle].action = derivedAction<Actor>(
 			[] (Actor& actor, const float dt)

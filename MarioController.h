@@ -3,6 +3,8 @@
 
 #include "gf/PlayerController.h"
 #include "Mario.h"
+#include "gf/World.h"
+#include "Shuriken.h"
 
 class MarioController : public PlayerController
 {
@@ -19,7 +21,7 @@ class MarioController : public PlayerController
 			ShowPos,
 			ShowVel,
 			ShowDir,
-			Teleport,
+			Attack,
 			DebugToggle,
 		};
 
