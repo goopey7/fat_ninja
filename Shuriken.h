@@ -17,7 +17,7 @@ class Shuriken : public Actor
 	protected:
 
 	private:
-		float speed = 100.f;
+		float speed = 500.f;
 		sf::Vector2f dir;
 };
 
