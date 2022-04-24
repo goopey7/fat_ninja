@@ -1,6 +1,7 @@
 //Copyright Sam Collier 2022
 
 #include "Shuriken.h"
+#include <cmath>
 
 Shuriken::Shuriken(const TextureHolder& textures, World* world)
 	: Actor(textures,world)
@@ -25,6 +26,9 @@ void Shuriken::setupTarget(sf::Vector2f target)
 
 void Shuriken::onCollisionEnter(Actor* other, sf::Vector2f& contactPoint, sf::Vector2f& contactNormal, float& hitTime, const float dt)
 {
-	velocity = {0.f,0.f};
+	if(std::fabs(contactNormal.x) != 0.f)
+		velocity.y = 0.f;
+	else if(std::fabs(contactNormal.y) != 0.f)
+		velocity.x = 0.f;
 }
 
