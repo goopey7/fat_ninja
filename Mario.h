@@ -4,6 +4,7 @@
 #include "gf/Actor.h"
 #include "gf/Animation.h"
 #include "gf/Vector.h"
+#include "Shuriken.h"
 #include "Resources.h"
 
 class Mario : public Actor
@@ -13,7 +14,7 @@ class Mario : public Actor
 
 		void handleAnimations(const float dt);
 		virtual void updateCurrent(const float dt) override;
-		virtual void fixedUpateCurrent(const float dt) override;
+		virtual void fixedUpdateCurrent(const float dt) override;
 		virtual unsigned int getCategory() const override;
 		virtual void onCollisionEnter(Actor* other, sf::Vector2f& contactPoint, sf::Vector2f& contactNormal, float& hitTime, const float dt) override;
 		void jump();
@@ -23,6 +24,7 @@ class Mario : public Actor
 		short getDir();
 		std::string getVelocity();
 		void updateView();
+		void setShuriken(Shuriken& shuriken);
 
 	private:
 		sf::Vector2f dir = {0.f,0.f};
@@ -42,5 +44,20 @@ class Mario : public Actor
 		sf::View view;
 
 		bool bCanJump = true;
+
+		Shuriken* thrownShuriken = nullptr;
+
+		enum State
+		{
+			Normal,
+			Swinging,
+		} state = Normal;
+
+		// ROPE STUFF
+		sf::Vector2f shurikenPos;
+		float ropeAngleVelocity;
+		float ropeAngle;
+		float ropeLength;
+		float ropeX, ropeY;
 };
 

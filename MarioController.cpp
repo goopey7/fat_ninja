@@ -90,6 +90,7 @@ MarioController::MarioController(sf::RenderWindow* window)
 			shuriken->setIsDynamic(true);
 			shuriken->setupTarget(mWorldPos);
 			shuriken->setOrigin(textureSize.x/2.f, textureSize.y/2.f);
+			mario.setShuriken(*shuriken.get());
 			mario.getWorld()->addNode(&shuriken,World::Tile);
 		});
 

@@ -1,5 +1,4 @@
 //Copyright Sam Collier 2022
-
 #include "Mario.h"
 #include <cmath>
 
@@ -48,14 +47,43 @@ void Mario::handleAnimations(const float dt)
 
 void Mario::updateCurrent(const float dt)
 {
-	velocity.y += gravity * dt;
-	velocity.x = dir.x * maxSpeed;
 	handleAnimations(dt);
 }
 
-void Mario::fixedUpateCurrent(const float dt)
+void Mario::fixedUpdateCurrent(const float dt)
 {
-	Actor::fixedUpateCurrent(dt);
+	Actor::fixedUpdateCurrent(dt);
+
+	if(thrownShuriken != nullptr)
+	{
+		if(thrownShuriken->hasHitWall() && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			// TODO INSERT CODE FOR INITIAL CALCULATIONS
+			state = Swinging;
+		}
+		else if(thrownShuriken->hasHitWall())
+		{
+			state = Normal;
+			thrownShuriken = nullptr;
+		}
+	}
+
+	switch(state)
+	{
+		case Normal:
+			{
+				velocity.x = dir.x * maxSpeed;
+				velocity.y += gravity * dt;
+			}
+			break;
+
+		case Swinging:
+			{
+				// TODO APPLY SWING PHYSICS
+				velocity = {0.f,0.f};
+			}
+			break;
+	}
 	updateView();
 }
 
@@ -109,5 +137,8 @@ void Mario::onCollisionEnter(Actor* other, sf::Vector2f& contactPoint, sf::Vecto
 	}
 }
 
-
+void Mario::setShuriken(Shuriken& shuriken)
+{
+	thrownShuriken = &shuriken;
+}
 
