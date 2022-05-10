@@ -18,6 +18,7 @@ class Mario : public Actor
 		virtual void fixedUpdateCurrent(const float dt) override;
 		virtual unsigned int getCategory() const override;
 		virtual void onCollisionEnter(Actor* other, sf::Vector2f& contactPoint, sf::Vector2f& contactNormal, float& hitTime, const float dt) override;
+		virtual void drawCurrent(sf::RenderTarget& target, const sf::RenderStates& states) const override;
 		void jump();
 		void crouch();
 		void stopCrouch();
@@ -69,5 +70,7 @@ class Mario : public Actor
 		int shurikenDir = 0;
 
 		bool bMouseReleased = true;
+
+		Line* line;
 };
 
