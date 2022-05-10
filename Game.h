@@ -39,5 +39,7 @@ class Game
 
 		Level* world;
 		MarioController* pc;
+
+		bool bPause = false;
 };
 

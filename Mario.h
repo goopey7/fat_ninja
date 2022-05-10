@@ -4,6 +4,7 @@
 #include "gf/Actor.h"
 #include "gf/Animation.h"
 #include "gf/Vector.h"
+#include "gf/Line.h"
 #include "Shuriken.h"
 #include "Resources.h"
 
@@ -26,6 +27,14 @@ class Mario : public Actor
 		void updateView();
 		void setShuriken(Shuriken& shuriken);
 
+		enum State
+		{
+			Normal,
+			Swinging,
+		}; 
+
+		State getState();
+
 	private:
 		sf::Vector2f dir = {0.f,0.f};
 		float gravity = 98.1f*6.f;
@@ -47,11 +56,7 @@ class Mario : public Actor
 
 		Shuriken* thrownShuriken = nullptr;
 
-		enum State
-		{
-			Normal,
-			Swinging,
-		} state = Normal;
+		State state = Normal;	
 
 		// ROPE STUFF
 		sf::Vector2f shurikenPos;
@@ -59,5 +64,10 @@ class Mario : public Actor
 		float ropeAngle;
 		float ropeLength;
 		float ropeX, ropeY;
+		sf::Vector2f grapplePos;
+		sf::Vector2f ropePos;
+		int shurikenDir = 0;
+
+		bool bMouseReleased = true;
 };
 

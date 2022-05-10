@@ -6,12 +6,11 @@
 Shuriken::Shuriken(const TextureHolder& textures, World* world)
 	: Actor(textures,world)
 {
-	//rotationSpeed = 500.f;
 }
 
 void Shuriken::setupTarget(sf::Vector2f target)
 {
-	dir = Vector::normalize(sf::Vector2f(target.x,target.y) - getWorldPosition());
+	dir = Vector<float>::normalize(sf::Vector2f(target.x,target.y) - getWorldPosition());
 	velocity = dir * speed;
 }
 
@@ -29,5 +28,16 @@ void Shuriken::onCollisionEnter(Actor* other, sf::Vector2f& contactPoint, sf::Ve
 bool Shuriken::hasHitWall()
 {
 	return bHitWall;
+}
+
+void Shuriken::drawCurrent(sf::RenderTarget& target, const sf::RenderStates& states) const
+{
+	target.draw(sprite,states);
+	if(bDebugMode)
+		target.draw(box,states);
+}
+
+Shuriken::~Shuriken()
+{
 }
 

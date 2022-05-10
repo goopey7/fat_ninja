@@ -56,15 +56,23 @@ void Mario::fixedUpdateCurrent(const float dt)
 
 	if(thrownShuriken != nullptr)
 	{
-		if(thrownShuriken->hasHitWall() && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		if(thrownShuriken->hasHitWall() && sf::Mouse::isButtonPressed(sf::Mouse::Left) && bMouseReleased)
 		{
 			// TODO INSERT CODE FOR INITIAL CALCULATIONS
 			state = Swinging;
+			grapplePos = thrownShuriken->getWorldPosition();
+			ropePos = getWorldPosition();
+			ropeAngleVelocity = 0;
+			ropeAngle = Vector<float>::angle(grapplePos,sf::Vector2f(ropePos.x + collisionBox.width,ropePos.y));
+			ropeLength = Vector<float>::distance(grapplePos,ropePos);
+			shurikenDir = (thrownShuriken->getWorldPosition().x > getWorldPosition().x) ? (1) : (-1);
+			bMouseReleased = false;
 		}
-		else if(thrownShuriken->hasHitWall())
+		else if(thrownShuriken->hasHitWall() && !sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
 			state = Normal;
 			thrownShuriken = nullptr;
+			bMouseReleased = true;
 		}
 	}
 
@@ -80,7 +88,18 @@ void Mario::fixedUpdateCurrent(const float dt)
 		case Swinging:
 			{
 				// TODO APPLY SWING PHYSICS
-				velocity = {0.f,0.f};
+				float ropeAngleAcceleration = -1.6f * cosf(ropeAngle);
+				ropeAngleVelocity += ropeAngleAcceleration * dt;
+				ropeAngle += ropeAngleVelocity * dt;
+				ropePos.x = grapplePos.x + shurikenDir * ropeLength * cosf(ropeAngle);
+				ropePos.y = grapplePos.y + ropeLength * -sinf(ropeAngle);
+				velocity = ropePos - getWorldPosition();
+				std::cout << "DIR: " << shurikenDir << '\n';
+				/*
+				std::cout << "ANGLE: " << ropeAngle*180.f/PI << " degrees\n";
+				std::cout << "ANGLE VELOCITY: " << ropeAngleVelocity*180.f/PI << " degrees/sec\n";
+				std::cout << "LENGTH: " << ropeLength << '\n';
+				*/
 			}
 			break;
 	}
@@ -140,5 +159,10 @@ void Mario::onCollisionEnter(Actor* other, sf::Vector2f& contactPoint, sf::Vecto
 void Mario::setShuriken(Shuriken& shuriken)
 {
 	thrownShuriken = &shuriken;
+}
+
+Mario::State Mario::getState()
+{
+	return state;
 }
 

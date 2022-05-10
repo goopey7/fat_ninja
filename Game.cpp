@@ -59,6 +59,11 @@ void Game::handleEvents()
 			sf::FloatRect windowRect(0.f,0.f,ev.size.width*viewScale,ev.size.height*viewScale);
 			window->setView(sf::View(windowRect));
 		}
+		else if(ev.type == sf::Event::KeyPressed)
+		{
+			if(ev.key.code == sf::Keyboard::Escape)
+				bPause = !bPause;
+		}
 	}
 	pc->handleHeldInput(commands);
 }
@@ -90,24 +95,26 @@ void Game::run()
 	// GAME LOOP
 	while(window->isOpen())
 	{
-		// get the time
-		sf::Time currentTime = timer.getElapsedTime();
-		sf::Time dt = currentTime - prevTime;
-		timeBetweenTicks += dt;
-		prevTime = currentTime;
-
 		// Realtime Events
 		handleEvents();
-		update(dt.asSeconds());
 
-		// Fixed Time Events
-		while(timeBetweenTicks >= TimePerFixedUpdate)
+		// get the time
+		if(!bPause)
 		{
-			fixedUpdate(TimePerFixedUpdate.asSeconds());
-			// subtract a fixedUpdate worth of ticks
-			timeBetweenTicks-=TimePerFixedUpdate;
-		}
+			sf::Time currentTime = timer.getElapsedTime();
+			sf::Time dt = currentTime - prevTime;
+			timeBetweenTicks += dt;
+			prevTime = currentTime;
+			update(dt.asSeconds());
 
+			// Fixed Time Events
+			while(timeBetweenTicks >= TimePerFixedUpdate)
+			{
+				fixedUpdate(TimePerFixedUpdate.asSeconds());
+				// subtract a fixedUpdate worth of ticks
+				timeBetweenTicks-=TimePerFixedUpdate;
+			}
+		}
 		// Rendering
 		render();
 	}
