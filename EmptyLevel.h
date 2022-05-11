@@ -5,11 +5,10 @@
 #include "Resources.h"
 #include "Mario.h"
 
-class Level : public World
+class EmptyLevel : public World
 {
 	public:
-		explicit Level(sf::RenderWindow& window);
-		explicit Level(sf::RenderWindow& window, const char* fileName);
+		explicit EmptyLevel(sf::RenderWindow& window);
 	protected:
 		virtual void loadTextures();
 		virtual void buildGraph() override;

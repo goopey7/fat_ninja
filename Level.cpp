@@ -5,14 +5,21 @@
 Level::Level(sf::RenderWindow& window)
 	: World(window)
 {
-	loadFromFile("levels/grappleTest.json",textures,Textures::Size);
 	loadTextures();
+	buildGraph();
+}
+
+Level::Level(sf::RenderWindow& window, const char* fileName)
+	: World(window)
+{
+	loadTextures();
+	loadFromFile(fileName,textures,Textures::Size);
 	buildGraph();
 }
 
 void Level::loadTextures()
 {
-	// Load Textures Here
+	// Manually Load Textures Here
 	textures.load(Textures::Mario,"art/marioSheet.png");
 	textures.load(Textures::Shuriken,"art/shuriken.png");
 }
@@ -28,4 +35,6 @@ void Level::buildGraph()
 	mario->setIsDynamic(true);
 	addNode(&mario,Tile);
 }
+
+
 

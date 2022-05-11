@@ -32,7 +32,10 @@ void Game::initWindow()
 Game::Game()
 { 
 	initWindow();
-	world = new Level(*window);
+	world = new std::unique_ptr<World>(new MainMenu(*window));
+	((MainMenu*)(*world).get())->setCurrentLevel(world);
+	std::cout << "GAME\n";
+	std::cout << world << std::endl;
 	pc = new MarioController(window);
 }
 
@@ -45,7 +48,7 @@ Game::~Game()
 
 void Game::handleEvents()
 {
-	CommandQueue& commands = world->getCommandQueue();
+	CommandQueue& commands = (*world)->getCommandQueue();
 	sf::Event ev;
 	while(window->pollEvent(ev))
 	{
@@ -70,18 +73,18 @@ void Game::handleEvents()
 
 void Game::update(const float dt)
 {
-	world->update(dt);
+	(*world)->update(dt);
 }
 
 void Game::fixedUpdate(const float dt)
 {
-	world->fixedUpdate(dt);
+	(*world)->fixedUpdate(dt);
 }
 
 void Game::render()
 {
 	window->clear();
-	world->draw();
+	(*world)->draw();
 	window->display();
 }
 

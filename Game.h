@@ -11,6 +11,8 @@
 #include <SFML/Network.hpp>
 #include <SFML/Window.hpp>
 
+#include "MainMenu.h"
+#include "EmptyLevel.h"
 #include "Level.h"
 #include "MarioController.h"
 
@@ -37,7 +39,7 @@ class Game
 
 		float viewScale = 0.15f;
 
-		Level* world;
+		std::unique_ptr<World>* world;
 		MarioController* pc;
 
 		bool bPause = false;
