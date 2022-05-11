@@ -34,6 +34,7 @@ Game::Game()
 	initWindow();
 	world = new std::unique_ptr<World>(new MainMenu(*window));
 	((MainMenu*)(*world).get())->setCurrentLevel(world);
+	worldPrev = world->get();
 	std::cout << "GAME\n";
 	std::cout << world << std::endl;
 	pc = new MarioController(window);
@@ -57,10 +58,12 @@ void Game::handleEvents()
 			window->close();
 
 		// Scale view with window size
-		else if(ev.type == sf::Event::Resized)
+		else if(ev.type == sf::Event::Resized || world->get() != worldPrev) 
 		{
-			sf::FloatRect windowRect(0.f,0.f,ev.size.width*viewScale,ev.size.height*viewScale);
+			std::cout << "WTF\n";
+			sf::FloatRect windowRect(0.f,0.f,window->getSize().x*world->get()->getViewScale(),window->getSize().y*world->get()->getViewScale());
 			window->setView(sf::View(windowRect));
+			worldPrev = world->get();
 		}
 		else if(ev.type == sf::Event::KeyPressed)
 		{

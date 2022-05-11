@@ -7,6 +7,7 @@ Level::Level(sf::RenderWindow& window)
 {
 	loadTextures();
 	buildGraph();
+	viewScale = .15f;
 }
 
 Level::Level(sf::RenderWindow& window, const char* fileName)

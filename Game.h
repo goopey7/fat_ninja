@@ -37,11 +37,13 @@ class Game
 		// For FixedUpdate
 		const int TicksPerSec = 60;
 
-		float viewScale = 0.15f;
-
 		std::unique_ptr<World>* world;
 		MarioController* pc;
 
 		bool bPause = false;
+
+		float currentScale = 1.f;
+
+		World* worldPrev;
 };
 

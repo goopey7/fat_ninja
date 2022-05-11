@@ -8,7 +8,8 @@ MainMenuHUD::MainMenuHUD(sf::RenderWindow* window, std::unique_ptr<World>* curre
 	std::cout << "HUD\n";
 	std::cout << currentWorld << std::endl;
 	this->currentWorld = currentWorld;
-	playButton = new Button(*window,sf::Vector2f(20.f,20.f),sf::Vector2f(100.f,100.f),"Play Game");
+	font.loadFromFile("font/arial.ttf");
+	playButton = new Button(*window,sf::Vector2f(20.f,20.f),sf::Vector2f(100.f,100.f),font,"Play Game");
 }
 
 MainMenuHUD::~MainMenuHUD()

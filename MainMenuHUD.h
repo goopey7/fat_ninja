@@ -19,5 +19,6 @@ class MainMenuHUD : public Node
 		std::unique_ptr<World>* currentWorld = nullptr;
 		Button* playButton;
 		sf::RenderWindow* window;
+		sf::Font font;
 };
 

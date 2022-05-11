@@ -7,6 +7,12 @@ MainMenu::MainMenu(sf::RenderWindow& window)
 {
 	loadTextures();
 	buildGraph();
+	viewScale = 1.f;
+	/*
+	float viewScale = 1.f;
+	sf::FloatRect windowRect(0.f,0.f,window.getSize().x*viewScale,window.getSize().y*viewScale);
+	window.setView(sf::View(windowRect));
+	*/
 }
 
 void MainMenu::loadTextures()
