@@ -8,8 +8,7 @@
 class MainMenu : public World
 {
 	public:
-		MainMenu(sf::RenderWindow& window);
-		void setCurrentLevel(std::unique_ptr<World>* currentLevel);
+		MainMenu(sf::RenderWindow& window, std::unique_ptr<World>* currentLevel);
 
 	protected:
 		virtual void loadTextures();

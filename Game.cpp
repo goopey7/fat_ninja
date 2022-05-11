@@ -32,8 +32,8 @@ void Game::initWindow()
 Game::Game()
 { 
 	initWindow();
-	world = new std::unique_ptr<World>(new MainMenu(*window));
-	((MainMenu*)(*world).get())->setCurrentLevel(world);
+	world = new std::unique_ptr<World>(nullptr);
+	world->reset(new MainMenu(*window,world));
 	worldPrev = world->get();
 	std::cout << "GAME\n";
 	std::cout << world << std::endl;
