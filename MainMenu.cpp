@@ -23,6 +23,7 @@ MainMenu::MainMenu(sf::RenderWindow& window, std::unique_ptr<World>* currentLeve
 void MainMenu::loadResources()
 {
 	fonts.load(Fonts::Arial,"font/arial.ttf");
+	fonts.load(Fonts::Pixel,"font/bit01.ttf");
 }
 
 void MainMenu::buildGraph()

@@ -21,6 +21,7 @@ namespace Fonts
 	{
 		// insert Font IDs here
 		Arial,
+		Pixel,
 		Size
 	};
 }
