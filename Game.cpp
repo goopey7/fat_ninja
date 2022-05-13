@@ -104,22 +104,27 @@ void Game::run()
 		handleEvents();
 
 		// get the time
+		sf::Time currentTime = timer.getElapsedTime();
+		sf::Time dt = currentTime - prevTime;
+		timeBetweenTicks += dt;
+		prevTime = currentTime;
+
 		if(!bPause)
 		{
-			sf::Time currentTime = timer.getElapsedTime();
-			sf::Time dt = currentTime - prevTime;
-			timeBetweenTicks += dt;
-			prevTime = currentTime;
 			update(dt.asSeconds());
 
-			// Fixed Time Events
-			while(timeBetweenTicks >= TimePerFixedUpdate)
-			{
-				fixedUpdate(TimePerFixedUpdate.asSeconds());
-				// subtract a fixedUpdate worth of ticks
-				timeBetweenTicks-=TimePerFixedUpdate;
-			}
+		
 		}
+
+		// Fixed Time Events
+		while(timeBetweenTicks >= TimePerFixedUpdate)
+		{
+			if(!bPause)
+				fixedUpdate(TimePerFixedUpdate.asSeconds());
+			// subtract a fixedUpdate worth of ticks
+			timeBetweenTicks-=TimePerFixedUpdate;
+		}
+
 		// Rendering
 		render();
 	}
