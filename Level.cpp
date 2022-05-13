@@ -2,16 +2,16 @@
 
 #include "Level.h"
 
-Level::Level(sf::RenderWindow& window)
-	: World(window)
+Level::Level(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld)
+	: World(window,currentWorld)
 {
 	loadTextures();
 	buildGraph();
 	viewScale = .15f;
 }
 
-Level::Level(sf::RenderWindow& window, const char* fileName)
-	: World(window)
+Level::Level(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld,const char* fileName)
+	: World(window,currentWorld)
 {
 	loadTextures();
 	loadFromFile(fileName,textures,Textures::Size);
@@ -38,4 +38,13 @@ void Level::buildGraph()
 }
 
 
+
+void Level::update(const float dt)
+{
+	World::update(dt);
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+	{
+		currentWorld->reset(new MainMenu(window,currentWorld));
+	}
+}
 

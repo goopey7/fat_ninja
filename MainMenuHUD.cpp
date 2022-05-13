@@ -22,7 +22,7 @@ void MainMenuHUD::updateCurrent(const float dt)
 	if(playButton->isClicked())
 	{
 		std::cout << currentWorld << std::endl;
-		currentWorld->reset(new Level(*window,"levels/grappleTest.json"));
+		currentWorld->reset(new Level(*window, currentWorld,"levels/grappleTest.json"));
 	}
 }
 

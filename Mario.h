@@ -11,7 +11,7 @@
 class Mario : public Actor
 {
 	public:
-		Mario(const TextureHolder& textures, World* world, sf::RenderWindow* window);
+		Mario(const TextureHolder& textures, World* currentWorld, sf::RenderWindow* window);
 		~Mario();
 
 		void handleAnimations(const float dt);

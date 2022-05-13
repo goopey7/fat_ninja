@@ -60,7 +60,6 @@ void Game::handleEvents()
 		// Scale view with window size
 		else if(ev.type == sf::Event::Resized || world->get() != worldPrev) 
 		{
-			std::cout << "WTF\n";
 			sf::FloatRect windowRect(0.f,0.f,window->getSize().x*world->get()->getViewScale(),window->getSize().y*world->get()->getViewScale());
 			window->setView(sf::View(windowRect));
 			worldPrev = world->get();

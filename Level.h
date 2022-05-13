@@ -4,12 +4,14 @@
 #include "gf/World.h"
 #include "Resources.h"
 #include "Mario.h"
+#include "MainMenu.h"
 
 class Level : public World
 {
 	public:
-		explicit Level(sf::RenderWindow& window);
-		explicit Level(sf::RenderWindow& window, const char* fileName);
+		explicit Level(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld);
+		explicit Level(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld,const char* fileName);
+		virtual void update(const float dt) override;
 	protected:
 		virtual void loadTextures();
 		virtual void buildGraph() override;

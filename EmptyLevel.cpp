@@ -2,8 +2,8 @@
 
 #include "EmptyLevel.h"
 
-EmptyLevel::EmptyLevel(sf::RenderWindow& window)
-	: World(window)
+EmptyLevel::EmptyLevel(sf::RenderWindow& window,std::unique_ptr<World>* currentWorld)
+	: World(window,currentWorld)
 {
 	loadTextures();
 	buildGraph();

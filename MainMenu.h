@@ -16,7 +16,6 @@ class MainMenu : public World
 		TextureHolder textures;
 
 	private:
-		std::unique_ptr<World>* currentLevel;
 		sf::RenderWindow* window;
 };
 

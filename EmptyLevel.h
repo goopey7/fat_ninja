@@ -8,7 +8,7 @@
 class EmptyLevel : public World
 {
 	public:
-		explicit EmptyLevel(sf::RenderWindow& window);
+		explicit EmptyLevel(sf::RenderWindow& window,std::unique_ptr<World>* currentWorld);
 	protected:
 		virtual void loadTextures();
 		virtual void buildGraph() override;

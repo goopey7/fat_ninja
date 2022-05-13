@@ -3,7 +3,7 @@
 #include "MainMenu.h"
 
 MainMenu::MainMenu(sf::RenderWindow& window, std::unique_ptr<World>* currentLevel)
-	: World(window), window(&window), currentLevel(currentLevel)
+	: World(window,currentLevel), window(&window) 
 {
 	loadTextures();
 	buildGraph();
@@ -15,7 +15,7 @@ MainMenu::MainMenu(sf::RenderWindow& window, std::unique_ptr<World>* currentLeve
 	*/
 
 	std::cout << "MAIN MENU LEVEL\n";
-	std::cout << this->currentLevel << std::endl;
+	std::cout << this->currentWorld << std::endl;
 	std::unique_ptr<MainMenuHUD> menu(new MainMenuHUD(&window,currentLevel));
 	addNode(&menu,HUD);
 }

@@ -2,8 +2,8 @@
 #include "Mario.h"
 #include <cmath>
 
-Mario::Mario(const TextureHolder& textures, World* world, sf::RenderWindow* window)
-	: Actor(textures,world), window(window), view(window->getView())
+Mario::Mario(const TextureHolder& textures, World* currentWorld, sf::RenderWindow* window)
+	: Actor(textures,currentWorld), window(window), view(window->getView())
 {
 	for(int i=0; i<walkFrames; i++)
 		walk.addFrame(sf::IntRect(i*walkWidth,0,walkWidth,walkHeight));
