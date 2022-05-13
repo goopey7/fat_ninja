@@ -5,7 +5,7 @@
 Level::Level(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld)
 	: World(window,currentWorld)
 {
-	loadTextures();
+	loadResources();
 	buildGraph();
 	viewScale = .15f;
 }
@@ -13,12 +13,12 @@ Level::Level(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld)
 Level::Level(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld,const char* fileName)
 	: World(window,currentWorld)
 {
-	loadTextures();
+	loadResources();
 	loadFromFile(fileName,textures,Textures::Size);
 	buildGraph();
 }
 
-void Level::loadTextures()
+void Level::loadResources()
 {
 	// Manually Load Textures Here
 	textures.load(Textures::Mario,"art/marioSheet.png");
@@ -36,8 +36,6 @@ void Level::buildGraph()
 	mario->setIsDynamic(true);
 	addNode(&mario,Tile);
 }
-
-
 
 void Level::update(const float dt)
 {

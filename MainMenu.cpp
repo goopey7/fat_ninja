@@ -5,7 +5,7 @@
 MainMenu::MainMenu(sf::RenderWindow& window, std::unique_ptr<World>* currentLevel)
 	: World(window,currentLevel), window(&window) 
 {
-	loadTextures();
+	loadResources();
 	buildGraph();
 	viewScale = 1.f;
 	/*
@@ -16,15 +16,15 @@ MainMenu::MainMenu(sf::RenderWindow& window, std::unique_ptr<World>* currentLeve
 
 	std::cout << "MAIN MENU LEVEL\n";
 	std::cout << this->currentWorld << std::endl;
-	std::unique_ptr<MainMenuHUD> menu(new MainMenuHUD(&window,currentLevel));
+	std::unique_ptr<MainMenuHUD> menu(new MainMenuHUD(fonts,&window,currentLevel));
 	addNode(&menu,HUD);
 }
 
-void MainMenu::loadTextures()
+void MainMenu::loadResources()
 {
+	fonts.load(Fonts::Arial,"font/arial.ttf");
 }
 
 void MainMenu::buildGraph()
 {
-	
 }

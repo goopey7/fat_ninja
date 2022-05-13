@@ -13,7 +13,7 @@ class Level : public World
 		explicit Level(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld,const char* fileName);
 		virtual void update(const float dt) override;
 	protected:
-		virtual void loadTextures();
+		virtual void loadResources() override;
 		virtual void buildGraph() override;
 		TextureHolder textures;
 };

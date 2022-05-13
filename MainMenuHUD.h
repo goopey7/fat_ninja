@@ -8,7 +8,7 @@
 class MainMenuHUD : public Node
 {
 	public:
-		MainMenuHUD(sf::RenderWindow* window, std::unique_ptr<World>* currentWorld);
+		MainMenuHUD(FontHolder& fonts,sf::RenderWindow* window, std::unique_ptr<World>* currentWorld);
 		~MainMenuHUD();
 		virtual void updateCurrent(const float dt) override;
 		virtual void drawCurrent(sf::RenderTarget& target, const sf::RenderStates& states) const override;
@@ -19,6 +19,6 @@ class MainMenuHUD : public Node
 		std::unique_ptr<World>* currentWorld = nullptr;
 		Button* playButton;
 		sf::RenderWindow* window;
-		sf::Font font;
+		FontHolder* fonts;
 };
 

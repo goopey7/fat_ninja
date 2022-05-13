@@ -12,7 +12,7 @@ namespace Textures
 		Bkg,
 		Mario,
 		Shuriken,
-		Size,
+		Size
 	};
 }
 namespace Fonts
@@ -20,11 +20,21 @@ namespace Fonts
 	enum ID
 	{
 		// insert Font IDs here
+		Arial,
+		Size
+	};
+}
+namespace Sounds
+{
+	enum ID
+	{
+		// insert Sound IDs here
 	};
 }
 // insert more enums for additional types here
 
 // Typedefs to make code more readable for commonly used Resources
 typedef ResourceHolder<sf::Texture,unsigned int> TextureHolder;
-typedef ResourceHolder<sf::Font,Fonts::ID> FontHolder;
+typedef ResourceHolder<sf::Font,unsigned int> FontHolder;
+typedef ResourceHolder<sf::SoundBuffer,unsigned int> SoundHolder;
 

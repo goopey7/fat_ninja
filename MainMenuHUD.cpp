@@ -2,14 +2,13 @@
 
 #include "MainMenuHUD.h"
 
-MainMenuHUD::MainMenuHUD(sf::RenderWindow* window, std::unique_ptr<World>* currentWorld)
-	: window(window)
+MainMenuHUD::MainMenuHUD(FontHolder& fonts,sf::RenderWindow* window, std::unique_ptr<World>* currentWorld)
+	: window(window), fonts(&fonts)
 {
 	std::cout << "HUD\n";
 	std::cout << currentWorld << std::endl;
 	this->currentWorld = currentWorld;
-	font.loadFromFile("font/arial.ttf");
-	playButton = new Button(*window,sf::Vector2f(20.f,20.f),sf::Vector2f(100.f,100.f),font,"Play Game");
+	playButton = new Button(*window,sf::Vector2f(20.f,20.f),sf::Vector2f(100.f,100.f),fonts.get(Fonts::Arial),"Play Game");
 }
 
 MainMenuHUD::~MainMenuHUD()

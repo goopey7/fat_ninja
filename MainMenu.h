@@ -11,9 +11,10 @@ class MainMenu : public World
 		MainMenu(sf::RenderWindow& window, std::unique_ptr<World>* currentLevel);
 
 	protected:
-		virtual void loadTextures();
+		virtual void loadResources() override;
 		virtual void buildGraph() override;
 		TextureHolder textures;
+		FontHolder fonts;
 
 	private:
 		sf::RenderWindow* window;
