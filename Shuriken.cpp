@@ -6,6 +6,7 @@
 Shuriken::Shuriken(const TextureHolder& textures, World* world)
 	: Actor(textures,world)
 {
+	setCategory(Category::Shuriken | Category::Actor);
 }
 
 void Shuriken::setupTarget(sf::Vector2f target)
@@ -37,11 +38,6 @@ void Shuriken::drawCurrent(sf::RenderTarget& target, const sf::RenderStates& sta
 
 Shuriken::~Shuriken()
 {
-}
-
-unsigned int Shuriken::getCategory() const
-{
-	return Category::Shuriken;
 }
 
 void Shuriken::stopMoving()

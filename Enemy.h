@@ -14,7 +14,6 @@ class Enemy : public Actor
 		void handleAnimations(const float dt);
 		virtual void updateCurrent(const float dt) override;
 		virtual void fixedUpdateCurrent(const float dt) override;
-		virtual unsigned int getCategory() const override;
 		virtual void onCollisionEnter(Actor* other, sf::Vector2f& contactPoint, sf::Vector2f& contactNormal, float& hitTime, const float dt) override;
 		virtual void drawCurrent(sf::RenderTarget& target, const sf::RenderStates& states) const override;
 		virtual void onDynamicVsDynamicEnter(Actor* other) override;
@@ -27,5 +26,9 @@ class Enemy : public Actor
 		int walkHeight = 21;
 		int walkFrames = 4;
 		float walkSpeed = 0.1f;
+
+		float gravity = 98.1f*6.f;
+		sf::Vector2f dir = {1.f,0.f};
+		float speed = 110.f;
 };
 

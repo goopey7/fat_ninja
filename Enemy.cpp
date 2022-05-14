@@ -6,6 +6,7 @@
 Enemy::Enemy(const TextureHolder& textures, World* currentWorld)
 	: Actor(textures,currentWorld)
 {
+	setCategory(Category::Enemy | Category::Actor);
 	for(int i=0; i<walkFrames; i++)
 		walk.addFrame(sf::IntRect(i*walkWidth,0,walkWidth,walkHeight));
 	walk.setFrameSpeed(walkSpeed);
@@ -35,15 +36,14 @@ void Enemy::updateCurrent(const float dt)
 void Enemy::fixedUpdateCurrent(const float dt)
 {
 	Actor::fixedUpdateCurrent(dt);
-}
-
-unsigned int Enemy::getCategory() const
-{
-	return Category::Actor | Category::Enemy;
+	velocity.x = dir.x * speed;
+	velocity.y += gravity * dt;
 }
 
 void Enemy::onCollisionEnter(Actor* other, sf::Vector2f& contactPoint, sf::Vector2f& contactNormal, float& hitTime, const float dt)
 {
+	if(contactNormal.y == 0)
+		dir.x = contactNormal.x;
 }
 
 void Enemy::drawCurrent(sf::RenderTarget& target, const sf::RenderStates& states) const

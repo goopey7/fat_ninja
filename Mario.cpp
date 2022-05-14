@@ -5,6 +5,7 @@
 Mario::Mario(const TextureHolder& textures, World* currentWorld, sf::RenderWindow* window)
 	: Actor(textures,currentWorld), window(window), view(window->getView())
 {
+	setCategory(Category::PlayerCharacter | Category::Actor);
 	for(int i=0; i<walkFrames; i++)
 		walk.addFrame(sf::IntRect(i*walkWidth,0,walkWidth,walkHeight));
 	walk.setFrameSpeed(walkSpeed);
@@ -109,11 +110,6 @@ void Mario::fixedUpdateCurrent(const float dt)
 			break;
 	}
 	updateView();
-}
-
-unsigned int Mario::getCategory() const
-{
-	return Category::PlayerCharacter | Category::Actor;
 }
 
 void Mario::jump()
