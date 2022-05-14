@@ -40,13 +40,17 @@ void Enemy::fixedUpdateCurrent(const float dt)
 
 	// ray cast to find player
 	sf::Vector2f rayOrigin = getWorldPosition();
+	rayOrigin.y += 10.f;
+	if(dir.x == 1)
+		rayOrigin.x += getCollisionBox().width;
 	sf::Vector2f rayDir = dir;
 	sf::Vector2f cp, cn;
 	float hitTime;
-	if(Collision::RayVsActor(rayOrigin,rayDir,player,cp,cn,hitTime))
+	sf::Vector2f playerPos = player->getWorldPosition();
+	player->setLinePoints(rayOrigin-playerPos,(rayOrigin + (rayDir * rangeOfSight))-playerPos);
+	if(Collision::RayVsActor(rayOrigin,rayDir*rangeOfSight,player,cp,cn,hitTime))
 	{
-		std::cout << rayDir.x << " , " << rayDir.y << std::endl;
-		std::cout << "Ahhhh\n";
+		velocity.x = 0.f;
 	}
 }
 
@@ -77,9 +81,9 @@ void Enemy::handleAnimations(const float dt)
 		walk.pause();
 		walk.setToInitialFrame();
 	}
-	if(velocity.x < 0.f)
+	if(dir.x < 0.f)
 		walk.setFlipped(true);
-	else if(velocity.x > 0.f)
+	else if(dir.x > 0.f)
 		walk.setFlipped(false);
 	sprite.setTextureRect(walk.getCurrentFrame());
 }

@@ -33,6 +33,8 @@ class Enemy : public Actor
 		sf::Vector2f dir = {1.f,0.f};
 		float speed = 22.f;
 
+		float rangeOfSight = 100.f;
+
 		Mario* player;
 };
 

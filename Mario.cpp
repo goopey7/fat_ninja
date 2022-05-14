@@ -76,7 +76,7 @@ void Mario::fixedUpdateCurrent(const float dt)
 			state = Normal;
 			thrownShuriken = nullptr;
 			bMouseReleased = true;
-			line->setPoints(sf::Vector2f(0.f,0.f),sf::Vector2f(0.f,0.f));
+			//line->setPoints(sf::Vector2f(0.f,0.f),sf::Vector2f(0.f,0.f));
 		}
 	}
 
@@ -105,9 +105,10 @@ void Mario::fixedUpdateCurrent(const float dt)
 				std::cout << "ANGLE VELOCITY: " << ropeAngleVelocity*180.f/PI << " degrees/sec\n";
 				std::cout << "CLAMPED ANGLE VELOCITY: " << clampedRopeAngleVelocity*180.f/PI << " degrees/sec\n";
 				std::cout << "LENGTH: " << ropeLength << '\n';
-				*/
+
 				line->setPoints(sf::Vector2f(collisionBox.width/2.f,collisionBox.height/2.f),-getWorldPosition()+thrownShuriken->getWorldPosition()
 						+sf::Vector2f(thrownShuriken->getCollisionBox().width/2.f,thrownShuriken->getCollisionBox().height/2.f));
+						*/
 			}
 			break;
 	}
@@ -171,13 +172,21 @@ Mario::State Mario::getState()
 
 void Mario::drawCurrent(sf::RenderTarget& target, const sf::RenderStates& states) const
 {
+	/*
 	if(thrownShuriken != nullptr)
 		target.draw(*line,states);
+	*/
+	target.draw(*line,states);
 	Actor::drawCurrent(target,states);
 }
 
 Mario::~Mario()
 {
 	delete line;
+}
+
+void Mario::setLinePoints(sf::Vector2f p1, sf::Vector2f p2)
+{
+	line->setPoints(p1,p2);
 }
 
