@@ -100,10 +100,12 @@ void Mario::fixedUpdateCurrent(const float dt)
 				ropePos.x = grapplePos.x + shurikenDir * ropeLength * cosf(ropeAngle);
 				ropePos.y = grapplePos.y + ropeLength * -sinf(ropeAngle);
 				velocity = ropePos - getWorldPosition();
+				/*
 				std::cout << "ANGLE: " << ropeAngle*180.f/PI << " degrees\n";
 				std::cout << "ANGLE VELOCITY: " << ropeAngleVelocity*180.f/PI << " degrees/sec\n";
 				std::cout << "CLAMPED ANGLE VELOCITY: " << clampedRopeAngleVelocity*180.f/PI << " degrees/sec\n";
 				std::cout << "LENGTH: " << ropeLength << '\n';
+				*/
 				line->setPoints(sf::Vector2f(collisionBox.width/2.f,collisionBox.height/2.f),-getWorldPosition()+thrownShuriken->getWorldPosition()
 						+sf::Vector2f(thrownShuriken->getCollisionBox().width/2.f,thrownShuriken->getCollisionBox().height/2.f));
 			}

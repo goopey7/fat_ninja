@@ -3,8 +3,8 @@
 #include "Enemy.h"
 #include <cmath>
 
-Enemy::Enemy(const TextureHolder& textures, World* currentWorld)
-	: Actor(textures,currentWorld)
+Enemy::Enemy(const TextureHolder& textures, World* currentWorld, Mario* player)
+	: Actor(textures,currentWorld), player(player)
 {
 	setCategory(Category::Enemy | Category::Actor);
 	for(int i=0; i<walkFrames; i++)
@@ -26,7 +26,6 @@ Enemy::Enemy(const TextureHolder& textures, World* currentWorld)
 
 	box.setSize(sf::Vector2f(collisionBox.width,collisionBox.height));
 	box.setPosition(collisionBox.left,collisionBox.top);
-
 }
 void Enemy::updateCurrent(const float dt)
 {
@@ -38,6 +37,17 @@ void Enemy::fixedUpdateCurrent(const float dt)
 	Actor::fixedUpdateCurrent(dt);
 	velocity.x = dir.x * speed;
 	velocity.y += gravity * dt;
+
+	// ray cast to find player
+	sf::Vector2f rayOrigin = getWorldPosition();
+	sf::Vector2f rayDir = dir;
+	sf::Vector2f cp, cn;
+	float hitTime;
+	if(Collision::RayVsActor(rayOrigin,rayDir,player,cp,cn,hitTime))
+	{
+		std::cout << rayDir.x << " , " << rayDir.y << std::endl;
+		std::cout << "Ahhhh\n";
+	}
 }
 
 void Enemy::onCollisionEnter(Actor* other, sf::Vector2f& contactPoint, sf::Vector2f& contactNormal, float& hitTime, const float dt)
@@ -80,15 +90,6 @@ void Enemy::onDynamicVsDynamicEnter(Actor* other)
 	{
 		// apply damage to player
 		other->applyDamage(damage);
-	}
-	else if(other->getCategory() == Category::Shuriken)
-	{
-		// apply damage to self
-		applyDamage(other->getDamage());
-		std::cout << "OUCH\n";
-		Shuriken* s = reinterpret_cast<Shuriken*>(other);
-		s->stopMoving();
-		s->setIsDynamic(false);
 	}
 }
 

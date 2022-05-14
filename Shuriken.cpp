@@ -46,3 +46,15 @@ void Shuriken::stopMoving()
 	bHitWall = true;
 }
 
+void Shuriken::onDynamicVsDynamicEnter(Actor* other)
+{
+	if(other->getCategory() & Category::Enemy)
+	{
+		// apply damage to self
+		other->applyDamage(getDamage());
+		std::cout << "Hit Enemy!";
+		other->die();
+		die();
+	}
+}
+

@@ -15,6 +15,7 @@ class Shuriken : public Actor
 		//virtual void fixedUpateCurrent(const float dt) override;
 		void setupTarget(sf::Vector2f target);
 		virtual void onCollisionEnter(Actor* other, sf::Vector2f& contactPoint, sf::Vector2f& contactNormal, float& hitTime, const float dt) override;
+		virtual void onDynamicVsDynamicEnter(Actor* other) override;
 		bool hasHitWall() const;
 		void stopMoving();
 

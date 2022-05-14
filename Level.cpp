@@ -34,9 +34,8 @@ void Level::buildGraph()
 	mario->setTextureRect(sf::IntRect(0.f,0.f,textureSize.x,textureSize.y));
 	mario->setPosition(15.f*16.f,17.f);
 	mario->setIsDynamic(true);
-	addNode(&mario,Entity);
 
-	std::unique_ptr<Enemy> enemy(new Enemy(textures,this));
+	std::unique_ptr<Enemy> enemy(new Enemy(textures,this,mario.get()));
 	enemy->setTexture(Textures::Mario);
 	textureSize = enemy->getTextureSize();
 	enemy->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));
@@ -44,6 +43,7 @@ void Level::buildGraph()
 	enemy->setPosition(45.f,30.f);
 	enemy->setIsDynamic(true);
 	addNode(&enemy,Entity);
+	addNode(&mario,Entity);
 }
 
 void Level::update(const float dt)

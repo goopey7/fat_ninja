@@ -5,11 +5,13 @@
 #include "Shuriken.h"
 #include "gf/Animation.h"
 #include "Resources.h"
+#include "gf/Collision.h"
+#include "Mario.h"
 
 class Enemy : public Actor
 {
 	public:
-		Enemy(const TextureHolder& textures, World* currentWorld);
+		Enemy(const TextureHolder& textures, World* currentWorld, Mario* player);
 		~Enemy();
 		void handleAnimations(const float dt);
 		virtual void updateCurrent(const float dt) override;
@@ -29,6 +31,8 @@ class Enemy : public Actor
 
 		float gravity = 98.1f*6.f;
 		sf::Vector2f dir = {1.f,0.f};
-		float speed = 110.f;
+		float speed = 22.f;
+
+		Mario* player;
 };
 
