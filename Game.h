@@ -45,5 +45,7 @@ class Game
 		float currentScale = 1.f;
 
 		World* worldPrev;
+
+		void changeScale();
 };
 

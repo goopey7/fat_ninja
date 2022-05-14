@@ -47,10 +47,19 @@ Game::~Game()
 	delete world;
 }
 
+void Game::changeScale()
+{
+	sf::FloatRect windowRect(0.f,0.f,window->getSize().x*world->get()->getViewScale(),window->getSize().y*world->get()->getViewScale());
+	window->setView(sf::View(windowRect));
+	worldPrev = world->get();
+}
+
 void Game::handleEvents()
 {
 	CommandQueue& commands = (*world)->getCommandQueue();
 	sf::Event ev;
+	if(world->get() != worldPrev)
+		changeScale();
 	while(window->pollEvent(ev))
 	{
 		pc->handleEvent(ev,commands);
@@ -58,12 +67,11 @@ void Game::handleEvents()
 			window->close();
 
 		// Scale view with window size
-		else if(ev.type == sf::Event::Resized || world->get() != worldPrev) 
+		else if(ev.type == sf::Event::Resized) 
 		{
-			sf::FloatRect windowRect(0.f,0.f,window->getSize().x*world->get()->getViewScale(),window->getSize().y*world->get()->getViewScale());
-			window->setView(sf::View(windowRect));
-			worldPrev = world->get();
+			changeScale();
 		}
+
 		else if(ev.type == sf::Event::KeyPressed)
 		{
 			if(ev.key.code == sf::Keyboard::Escape)
