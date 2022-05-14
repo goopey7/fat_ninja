@@ -16,6 +16,7 @@ Level::Level(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld,cons
 	loadResources();
 	loadFromFile(fileName,textures,Textures::Size);
 	buildGraph();
+	loadEntitiesFromFile(fileName);
 }
 
 void Level::loadResources()
@@ -32,17 +33,9 @@ void Level::buildGraph()
 	sf::Vector2u textureSize = mario->getTextureSize();
 	mario->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));
 	mario->setTextureRect(sf::IntRect(0.f,0.f,textureSize.x,textureSize.y));
-	mario->setPosition(15.f*16.f,17.f);
+	mario->setPosition(0.f,-5.f);
 	mario->setIsDynamic(true);
-
-	std::unique_ptr<Enemy> enemy(new Enemy(textures,this,mario.get()));
-	enemy->setTexture(Textures::Mario);
-	textureSize = enemy->getTextureSize();
-	enemy->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));
-	enemy->setTextureRect(sf::IntRect(0.f,0.f,textureSize.x,textureSize.y));
-	enemy->setPosition(45.f,30.f);
-	enemy->setIsDynamic(true);
-	addNode(&enemy,Entity);
+	player = mario.get();
 	addNode(&mario,Entity);
 }
 
@@ -50,8 +43,39 @@ void Level::update(const float dt)
 {
 	World::update(dt);
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+	{ currentWorld->reset(new MainMenu(window,currentWorld));
+	}
+}
+
+void Level::loadEntitiesFromFile(const char* fileName)
+{
+	using nlohmann::json;
+	std::ifstream file(fileName);
+	json map = json::parse(file);
+	json layers = map["layers"];
+	for(json layer : layers)
 	{
-		currentWorld->reset(new MainMenu(window,currentWorld));
+		if(!layer["objects"].is_null())
+		{
+			for(json object : layer["objects"])
+			{
+				if(object["properties"].at(0)["name"] == "entity")
+				{
+					if(object["properties"].at(0)["value"] == "enemy")
+					{
+						std::unique_ptr<Enemy> enemy(new Enemy(textures,this,player));
+						enemy->setTexture(Textures::Mario);
+						sf::Vector2u textureSize = enemy->getTextureSize();
+						enemy->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));
+						enemy->setTextureRect(sf::IntRect(0.f,0.f,textureSize.x,textureSize.y));
+						enemy->setPosition((float)object["x"] - textureSize.x/2.f,(float)object["y"] - textureSize.y);
+						std::cout << enemy->getWorldPosition().x << " , " << enemy->getWorldPosition().y << std::endl;
+						enemy->setIsDynamic(true);
+						addNode(&enemy,Entity);
+					}
+				}
+			}
+		}
 	}
 }
 

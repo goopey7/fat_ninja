@@ -17,5 +17,9 @@ class Level : public World
 		virtual void loadResources() override;
 		virtual void buildGraph() override;
 		TextureHolder textures;
+	private:
+		void loadEntitiesFromFile(const char* fileName);
+
+		Mario* player;
 };
 
