@@ -4,6 +4,7 @@
 #include "gf/World.h"
 #include "Resources.h"
 #include "Mario.h"
+#include "Enemy.h"
 #include "MainMenu.h"
 
 class Level : public World

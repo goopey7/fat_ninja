@@ -25,19 +25,28 @@ void Shuriken::onCollisionEnter(Actor* other, sf::Vector2f& contactPoint, sf::Ve
 	bHitWall = true;
 }
 
-bool Shuriken::hasHitWall()
+bool Shuriken::hasHitWall() const
 {
 	return bHitWall;
 }
 
 void Shuriken::drawCurrent(sf::RenderTarget& target, const sf::RenderStates& states) const
 {
-	target.draw(sprite,states);
-	if(bDebugMode)
-		target.draw(box,states);
+	Actor::drawCurrent(target,states);
 }
 
 Shuriken::~Shuriken()
 {
+}
+
+unsigned int Shuriken::getCategory() const
+{
+	return Category::Shuriken;
+}
+
+void Shuriken::stopMoving()
+{
+	velocity = sf::Vector2f(0.f,0.f);
+	bHitWall = true;
 }
 
