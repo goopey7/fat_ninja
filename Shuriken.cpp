@@ -48,7 +48,7 @@ void Shuriken::stopMoving()
 
 void Shuriken::onDynamicVsDynamicEnter(Actor* other)
 {
-	if(other->getCategory() & Category::Enemy)
+	if(other->getCategory() & Category::Enemy && !(getCategory() & Category::EnemyProjectile))
 	{
 		// apply damage to self
 		other->applyDamage(getDamage());
@@ -56,5 +56,10 @@ void Shuriken::onDynamicVsDynamicEnter(Actor* other)
 		other->die();
 		die();
 	}
+}
+
+void Shuriken::fixedUpdateCurrent(const float dt)
+{
+	Actor::fixedUpdateCurrent(dt);
 }
 

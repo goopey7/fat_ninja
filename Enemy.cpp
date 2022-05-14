@@ -47,10 +47,22 @@ void Enemy::fixedUpdateCurrent(const float dt)
 	sf::Vector2f cp, cn;
 	float hitTime;
 	sf::Vector2f playerPos = player->getWorldPosition();
+	//TODO add debug line for debug mode
 	player->setLinePoints(rayOrigin-playerPos,(rayOrigin + (rayDir * rangeOfSight))-playerPos);
 	if(Collision::RayVsActor(rayOrigin,rayDir*rangeOfSight,player,cp,cn,hitTime))
 	{
 		velocity.x = 0.f;
+		Shuriken* s = new Shuriken(textures,currentWorld);
+		s->setPosition(sf::Vector2f(getWorldPosition()));
+		s->setupTarget(player->getWorldPosition());
+		s->setTexture(Textures::Shuriken);
+		sf::Vector2u textureSize = s->getTextureSize();
+		s->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));
+		s->setTextureRect(sf::IntRect(0.f,0.f,textureSize.x,textureSize.y));
+		s->setIsDynamic(true);
+		s->setOrigin(textureSize.x/2.f, textureSize.y/2.f);
+		s->setCategory(Category::EnemyProjectile | Category::Actor);
+		spawn(new Node::NodePtr(s));
 	}
 }
 
