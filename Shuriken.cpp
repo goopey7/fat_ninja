@@ -48,7 +48,7 @@ void Shuriken::stopMoving()
 
 void Shuriken::onDynamicVsDynamicEnter(Actor* other)
 {
-	if(other->getCategory() & Category::Enemy)
+	if(other->getCategory() & Category::Enemy && velocity != sf::Vector2f(0.f,0.f))
 	{
 		// apply damage to self
 		other->applyDamage(getDamage());
