@@ -3,7 +3,7 @@
 #include "Enemy.h"
 #include <cmath>
 
-Enemy::Enemy(const TextureHolder& textures, World* currentWorld, Mario* player)
+Enemy::Enemy(const TextureHolder& textures, World* currentWorld, Ninja* player)
 	: Actor(textures,currentWorld), player(player)
 {
 	setCategory(Category::Enemy | Category::Actor);

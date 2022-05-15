@@ -37,7 +37,7 @@ Game::Game()
 	worldPrev = world->get();
 	std::cout << "GAME\n";
 	std::cout << world << std::endl;
-	pc = new MarioController(window);
+	pc = new NinjaController(window);
 }
 
 Game::~Game()

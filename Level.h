@@ -3,7 +3,7 @@
 
 #include "gf/World.h"
 #include "Resources.h"
-#include "Mario.h"
+#include "Ninja.h"
 #include "Enemy.h"
 
 class Level : public World
@@ -20,6 +20,6 @@ class Level : public World
 		void loadEntitiesFromFile(const char* fileName);
 		void loadPlayerFromFile(const char* fileName);
 
-		Mario* player;
+		Ninja* player;
 };
 

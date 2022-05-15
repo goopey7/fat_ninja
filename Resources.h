@@ -10,7 +10,7 @@ namespace Textures
 		// insert texture IDs here
 		Box,
 		Bkg,
-		Mario,
+		Ninja,
 		Shuriken,
 		Enemy,
 		Bullet,

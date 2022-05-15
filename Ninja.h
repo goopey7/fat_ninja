@@ -8,11 +8,11 @@
 #include "Shuriken.h"
 #include "Resources.h"
 
-class Mario : public Actor
+class Ninja : public Actor
 {
 	public:
-		Mario(const TextureHolder& textures, World* currentWorld, sf::RenderWindow* window);
-		~Mario();
+		Ninja(const TextureHolder& textures, World* currentWorld, sf::RenderWindow* window);
+		~Ninja();
 
 		void handleAnimations(const float dt);
 		virtual void updateCurrent(const float dt) override;

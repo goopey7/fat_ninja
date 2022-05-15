@@ -2,15 +2,15 @@
 #pragma once
 
 #include "gf/PlayerController.h"
-#include "Mario.h"
+#include "Ninja.h"
 #include "gf/World.h"
 #include "Shuriken.h"
 
-class MarioController : public PlayerController
+class NinjaController : public PlayerController
 {
 	public:
-		MarioController(sf::RenderWindow* window);
-		~MarioController();
+		NinjaController(sf::RenderWindow* window);
+		~NinjaController();
 
 		enum Action
 		{

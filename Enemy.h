@@ -6,12 +6,12 @@
 #include "gf/Animation.h"
 #include "Resources.h"
 #include "gf/Collision.h"
-#include "Mario.h"
+#include "Ninja.h"
 
 class Enemy : public Actor
 {
 	public:
-		Enemy(const TextureHolder& textures, World* currentWorld, Mario* player);
+		Enemy(const TextureHolder& textures, World* currentWorld, Ninja* player);
 		~Enemy();
 		void handleAnimations(const float dt);
 		virtual void updateCurrent(const float dt) override;
@@ -38,6 +38,6 @@ class Enemy : public Actor
 		const float fireRate = 0.5f;
 		float timeSinceLastFire = 0.f;
 
-		Mario* player;
+		Ninja* player;
 };
 

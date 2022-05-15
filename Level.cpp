@@ -22,7 +22,7 @@ Level::Level(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld,cons
 void Level::loadResources()
 {
 	// Manually Load Textures Here
-	textures.load(Textures::Mario,"art/marioSheet.png");
+	textures.load(Textures::Ninja, "art/marioSheetNew.png");
 	textures.load(Textures::Shuriken,"art/shuriken.png");
 	textures.load(Textures::Enemy,"art/enemyScaled.png");
 	textures.load(Textures::Bullet,"art/flatBullet.png");
@@ -85,20 +85,20 @@ void Level::loadPlayerFromFile(const char* fileName)
 					bool bIsMenuPlayer = object["properties"].at(0)["value"] == "menuPlayer";
 					if(object["properties"].at(0)["value"] == "player" || bIsMenuPlayer)
 					{
-						std::unique_ptr<Mario> mario(new Mario(textures,this,&window));
+						std::unique_ptr<Ninja> ninja(new Ninja(textures, this, &window));
 						if(bIsMenuPlayer)
 						{
-							mario->setCategory(Category::MenuPlayer & Category::Actor);
-							mario->setDir(1);
+							ninja->setCategory(Category::MenuPlayer & Category::Actor);
+							ninja->setDir(1);
 						}
-						mario->setTexture(Textures::Mario);
-						sf::Vector2u textureSize = mario->getTextureSize();
-						mario->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));
-						mario->setTextureRect(sf::IntRect(0.f,0.f,textureSize.x,textureSize.y));
-						mario->setPosition((float)object["x"] - textureSize.x/2.f,(float)object["y"] - textureSize.y);
-						mario->setIsDynamic(true);
-						player = mario.get();
-						addNode(&mario,Entity);
+						ninja->setTexture(Textures::Ninja);
+						sf::Vector2u textureSize = ninja->getTextureSize();
+						ninja->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));
+						ninja->setTextureRect(sf::IntRect(0.f,0.f,textureSize.x,textureSize.y));
+						ninja->setPosition((float)object["x"] - textureSize.x/2.f,(float)object["y"] - textureSize.y);
+						ninja->setIsDynamic(true);
+						player = ninja.get();
+						addNode(&ninja,Entity);
 					}
 				}
 			}

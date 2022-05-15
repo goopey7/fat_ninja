@@ -14,7 +14,7 @@
 #include "MainMenu.h"
 #include "EmptyLevel.h"
 #include "Level.h"
-#include "MarioController.h"
+#include "NinjaController.h"
 
 // Game/App wrapper
 class Game
@@ -38,7 +38,7 @@ class Game
 		const int TicksPerSec = 60;
 
 		std::unique_ptr<World>* world;
-		MarioController* pc;
+		NinjaController* pc;
 
 		bool bPause = false;
 

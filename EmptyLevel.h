@@ -3,7 +3,7 @@
 
 #include "gf/World.h"
 #include "Resources.h"
-#include "Mario.h"
+#include "Ninja.h"
 
 class EmptyLevel : public World
 {

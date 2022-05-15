@@ -1,8 +1,8 @@
 //Copyright Sam Collier 2022
-#include "Mario.h"
+#include "Ninja.h"
 #include <cmath>
 
-Mario::Mario(const TextureHolder& textures, World* currentWorld, sf::RenderWindow* window)
+Ninja::Ninja(const TextureHolder& textures, World* currentWorld, sf::RenderWindow* window)
 	: Actor(textures,currentWorld), window(window), view(window->getView())
 {
 	setCategory(Category::PlayerCharacter | Category::Actor);
@@ -10,7 +10,7 @@ Mario::Mario(const TextureHolder& textures, World* currentWorld, sf::RenderWindo
 		walk.addFrame(sf::IntRect(i*walkWidth,0,walkWidth,walkHeight));
 	walk.setFrameSpeed(walkSpeed);
 
-	sprite.setTexture(textures.get(Textures::Mario));
+	sprite.setTexture(textures.get(Textures::Ninja));
 	sprite.setTextureRect(walk.getCurrentFrame());
 	sprite.setScale({1.2f,1.2f});
 
@@ -29,7 +29,7 @@ Mario::Mario(const TextureHolder& textures, World* currentWorld, sf::RenderWindo
 	line = new Line();
 }
 
-void Mario::handleAnimations(const float dt)
+void Ninja::handleAnimations(const float dt)
 {	
 	if(fabs(velocity.x) != 0.f)
 	{
@@ -48,12 +48,12 @@ void Mario::handleAnimations(const float dt)
 	sprite.setTextureRect(walk.getCurrentFrame());
 }
 
-void Mario::updateCurrent(const float dt)
+void Ninja::updateCurrent(const float dt)
 {
 	handleAnimations(dt);
 }
 
-void Mario::fixedUpdateCurrent(const float dt)
+void Ninja::fixedUpdateCurrent(const float dt)
 {
 	Actor::fixedUpdateCurrent(dt);
 
@@ -117,37 +117,37 @@ void Mario::fixedUpdateCurrent(const float dt)
 	updateView();
 }
 
-void Mario::jump()
+void Ninja::jump()
 {
 	if(bCanJump)
 		velocity.y = -jumpSpeed;
 	bCanJump = false;
 }
 
-void Mario::crouch()
+void Ninja::crouch()
 {
 }
 
-void Mario::stopCrouch()
+void Ninja::stopCrouch()
 {
 }
 
-void Mario::setDir(int dir)
+void Ninja::setDir(int dir)
 {
 	this->dir.x = dir;
 }
 
-short Mario::getDir()
+short Ninja::getDir()
 {
 	return dir.x;
 }
 
-std::string Mario::getVelocity()
+std::string Ninja::getVelocity()
 {
 	return std::to_string(velocity.x) + " , " + std::to_string(velocity.y) + '\n';
 }
 
-void Mario::updateView()
+void Ninja::updateView()
 {
 	sf::View view = window->getView();
 	if(getCategory() & Category::PlayerCharacter)
@@ -161,7 +161,7 @@ void Mario::updateView()
 	window->setView(view);
 }
 
-void Mario::onCollisionEnter(Actor* other, sf::Vector2f& contactPoint, sf::Vector2f& contactNormal, float& hitTime, const float dt)
+void Ninja::onCollisionEnter(Actor* other, sf::Vector2f& contactPoint, sf::Vector2f& contactNormal, float& hitTime, const float dt)
 {
 	if(contactNormal.y == -1.f)
 	{
@@ -173,17 +173,17 @@ void Mario::onCollisionEnter(Actor* other, sf::Vector2f& contactPoint, sf::Vecto
 	}
 }
 
-void Mario::setShuriken(Shuriken& shuriken)
+void Ninja::setShuriken(Shuriken& shuriken)
 {
 	thrownShuriken = &shuriken;
 }
 
-Mario::State Mario::getState()
+Ninja::State Ninja::getState()
 {
 	return state;
 }
 
-void Mario::drawCurrent(sf::RenderTarget& target, const sf::RenderStates& states) const
+void Ninja::drawCurrent(sf::RenderTarget& target, const sf::RenderStates& states) const
 {
 	/*
 	if(thrownShuriken != nullptr)
@@ -193,12 +193,12 @@ void Mario::drawCurrent(sf::RenderTarget& target, const sf::RenderStates& states
 	Actor::drawCurrent(target,states);
 }
 
-Mario::~Mario()
+Ninja::~Ninja()
 {
 	delete line;
 }
 
-void Mario::setLinePoints(sf::Vector2f p1, sf::Vector2f p2)
+void Ninja::setLinePoints(sf::Vector2f p1, sf::Vector2f p2)
 {
 	line->setPoints(p1,p2);
 }
