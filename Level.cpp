@@ -13,7 +13,7 @@ Level::Level(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld,cons
 	: World(window,currentWorld)
 {
 	loadResources();
-	loadFromFile(fileName,textures,Textures::Size);
+	loadFromFile(fileName,sfx,textures,Textures::Size);
 	loadPlayerFromFile(fileName);
 	loadEntitiesFromFile(fileName);
 	buildGraph();
@@ -21,11 +21,19 @@ Level::Level(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld,cons
 
 void Level::loadResources()
 {
-	// Manually Load Textures Here
+	// Manually Load Resources Here
 	textures.load(Textures::Ninja, "art/marioSheetNew.png");
 	textures.load(Textures::Shuriken,"art/shuriken.png");
 	textures.load(Textures::Enemy,"art/enemyScaled.png");
 	textures.load(Textures::Bullet,"art/flatBullet.png");
+
+	soundBuffers.load(Sfx::Grapple,"sfx/grapple.ogg");
+	std::unique_ptr<sf::Sound> s(new sf::Sound());
+	s->setBuffer(soundBuffers.get(Sfx::Grapple));
+	sfx.add(Sfx::Grapple,std::move(s));
+
+	song.openFromFile("music/Mixdown.wav");
+	//song.play();
 }
 
 void Level::buildGraph()
@@ -53,7 +61,7 @@ void Level::loadEntitiesFromFile(const char* fileName)
 				{
 					if(object["properties"].at(0)["value"] == "enemy")
 					{
-						std::unique_ptr<Enemy> enemy(new Enemy(textures,this,player));
+						std::unique_ptr<Enemy> enemy(new Enemy(sfx,textures,this,player));
 						enemy->setTexture(Textures::Enemy);
 						sf::Vector2u textureSize = enemy->getTextureSize();
 						enemy->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));
@@ -85,7 +93,7 @@ void Level::loadPlayerFromFile(const char* fileName)
 					bool bIsMenuPlayer = object["properties"].at(0)["value"] == "menuPlayer";
 					if(object["properties"].at(0)["value"] == "player" || bIsMenuPlayer)
 					{
-						std::unique_ptr<Ninja> ninja(new Ninja(textures, this, &window));
+						std::unique_ptr<Ninja> ninja(new Ninja(sfx, textures, this, &window));
 						if(bIsMenuPlayer)
 						{
 							ninja->setCategory(Category::MenuPlayer & Category::Actor);
@@ -104,5 +112,10 @@ void Level::loadPlayerFromFile(const char* fileName)
 			}
 		}
 	}
+}
+
+Level::~Level()
+{
+	song.stop();
 }
 

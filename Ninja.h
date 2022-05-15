@@ -11,7 +11,7 @@
 class Ninja : public Actor
 {
 	public:
-		Ninja(const TextureHolder& textures, World* currentWorld, sf::RenderWindow* window);
+		Ninja(Player& sounds, const TextureHolder& textures, World* currentWorld, sf::RenderWindow* window);
 		~Ninja();
 
 		void handleAnimations(const float dt);

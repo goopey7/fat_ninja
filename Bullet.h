@@ -9,7 +9,7 @@
 class Bullet : public Actor
 {
 	public:
-		Bullet(const TextureHolder& textures, World* world);
+		Bullet(Player& sounds,const TextureHolder& textures, World* world);
 		~Bullet();
 		//virtual void updateCurrent(const float dt) override;
 		//virtual void fixedUpateCurrent(const float dt) override;

@@ -27,11 +27,13 @@ namespace Fonts
 		Size
 	};
 }
-namespace Sounds
+namespace Sfx
 {
 	enum ID
 	{
 		// insert Sound IDs here
+		Grapple,
+		Size
 	};
 }
 // insert more enums for additional types here
@@ -40,4 +42,5 @@ namespace Sounds
 typedef ResourceHolder<sf::Texture,unsigned int> TextureHolder;
 typedef ResourceHolder<sf::Font,unsigned int> FontHolder;
 typedef ResourceHolder<sf::SoundBuffer,unsigned int> SoundHolder;
+typedef ResourceHolder<sf::Sound,unsigned int> Player;
 

@@ -2,8 +2,8 @@
 #include "Ninja.h"
 #include <cmath>
 
-Ninja::Ninja(const TextureHolder& textures, World* currentWorld, sf::RenderWindow* window)
-	: Actor(textures,currentWorld), window(window), view(window->getView())
+Ninja::Ninja(Player& sounds,const TextureHolder& textures, World* currentWorld, sf::RenderWindow* window)
+	: Actor(sounds,textures,currentWorld), window(window), view(window->getView())
 {
 	setCategory(Category::PlayerCharacter | Category::Actor);
 	for(int i=0; i<walkFrames; i++)
@@ -71,6 +71,7 @@ void Ninja::fixedUpdateCurrent(const float dt)
 			shurikenDir = (thrownShuriken->getWorldPosition().x > getWorldPosition().x) ? (1) : (-1);
 			bMouseReleased = false;
 			thrownShuriken->setIsBeingUsed(true);
+			sfx.get(Sfx::Grapple).play();
 		}
 		else if(thrownShuriken->hasHitWall() && !sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{

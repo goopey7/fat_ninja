@@ -11,7 +11,7 @@
 class Enemy : public Actor
 {
 	public:
-		Enemy(const TextureHolder& textures, World* currentWorld, Ninja* player);
+		Enemy(Player& sounds,const TextureHolder& textures, World* currentWorld, Ninja* player);
 		~Enemy();
 		void handleAnimations(const float dt);
 		virtual void updateCurrent(const float dt) override;

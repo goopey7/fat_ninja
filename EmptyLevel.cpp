@@ -16,7 +16,7 @@ void EmptyLevel::loadTextures()
 
 void EmptyLevel::buildGraph()
 {
-	std::unique_ptr<Shuriken> shuriken(new Shuriken(textures,this));
+	std::unique_ptr<Shuriken> shuriken(new Shuriken(sfx,textures,this));
 	shuriken->setTexture(Textures::Shuriken);
 	sf::Vector2u textureSize = shuriken->getTextureSize();
 	shuriken->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));

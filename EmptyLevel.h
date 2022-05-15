@@ -13,5 +13,6 @@ class EmptyLevel : public World
 		virtual void loadTextures();
 		virtual void buildGraph() override;
 		TextureHolder textures;
+		Player sfx;
 };
 

@@ -3,8 +3,8 @@
 #include "Shuriken.h"
 #include <cmath>
 
-Shuriken::Shuriken(const TextureHolder& textures, World* world)
-	: Actor(textures,world)
+Shuriken::Shuriken(Player& sounds,const TextureHolder& textures, World* world)
+	: Actor(sounds,textures,world)
 {
 	setCategory(Category::Shuriken | Category::Actor);
 }

@@ -3,8 +3,8 @@
 #include "Bullet.h"
 #include <cmath>
 
-Bullet::Bullet(const TextureHolder& textures, World* world)
-	: Actor(textures,world)
+Bullet::Bullet(Player& sounds,const TextureHolder& textures, World* world)
+	: Actor(sounds,textures,world)
 {
 	setCategory(Category::Bullet | Category::Actor);
 }

@@ -3,8 +3,8 @@
 #include "Enemy.h"
 #include <cmath>
 
-Enemy::Enemy(const TextureHolder& textures, World* currentWorld, Ninja* player)
-	: Actor(textures,currentWorld), player(player)
+Enemy::Enemy(Player& sounds,const TextureHolder& textures, World* currentWorld, Ninja* player)
+	: Actor(sounds,textures,currentWorld), player(player)
 {
 	setCategory(Category::Enemy | Category::Actor);
 	for(int i=0; i<walkFrames; i++)
@@ -54,7 +54,7 @@ void Enemy::fixedUpdateCurrent(const float dt)
 		if(Collision::RayVsActor(rayOrigin,rayDir*rangeOfSight,player,cp,cn,hitTime) && minRangeToFire <= Vector<float>::distance(getWorldPosition(),player->getWorldPosition()))
 		{
 			velocity.x = 0.f;
-			Bullet* s = new Bullet(textures,currentWorld);
+			Bullet* s = new Bullet(sfx,textures,currentWorld);
 			s->setTexture(Textures::Bullet);
 			sf::Vector2u textureSize = s->getTextureSize();
 			s->setPosition(getWorldPosition() + sf::Vector2f((dir.x == 1.f) ? 14.f + textureSize.x : textureSize.x,15.f));

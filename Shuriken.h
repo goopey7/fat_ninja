@@ -9,7 +9,7 @@
 class Shuriken : public Actor
 {
 	public:
-		Shuriken(const TextureHolder& textures, World* world);
+		Shuriken(Player& sounds,const TextureHolder& textures, World* world);
 		~Shuriken();
 		//virtual void updateCurrent(const float dt) override;
 		//virtual void fixedUpateCurrent(const float dt) override;
