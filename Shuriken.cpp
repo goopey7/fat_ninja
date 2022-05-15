@@ -52,7 +52,7 @@ void Shuriken::onDynamicVsDynamicEnter(Actor* other)
 	{
 		// apply damage to self
 		other->applyDamage(getDamage());
-		std::cout << "Hit Enemy!";
+		std::cout << "Hit Enemy!\n";
 		other->die();
 		die();
 	}

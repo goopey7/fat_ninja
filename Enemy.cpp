@@ -48,7 +48,7 @@ void Enemy::fixedUpdateCurrent(const float dt)
 	float hitTime;
 	sf::Vector2f playerPos = player->getWorldPosition();
 	//TODO add debug line for debug mode
-	//player->setLinePoints(rayOrigin-playerPos,(rayOrigin + (rayDir * rangeOfSight))-playerPos);
+	//setLinePoints(rayOrigin-playerPos,(rayOrigin + (rayDir * rangeOfSight))-playerPos);
 	if(Collision::RayVsActor(rayOrigin,rayDir*rangeOfSight,player,cp,cn,hitTime))
 	{
 		velocity.x = 0.f;

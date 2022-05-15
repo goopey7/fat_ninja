@@ -15,10 +15,10 @@ class Level : public World
 		virtual void update(const float dt) override;
 	protected:
 		virtual void loadResources() override;
-		virtual void buildGraph() override;
 		TextureHolder textures;
 	private:
 		void loadEntitiesFromFile(const char* fileName);
+		void loadPlayerFromFile(const char* fileName);
 
 		Mario* player;
 };

@@ -236,8 +236,8 @@
                  "type":"",
                  "visible":true,
                  "width":1.90909090909091,
-                 "x":78,
-                 "y":206.272727272727
+                 "x":16,
+                 "y":288
                 }, 
                 {
                  "height":18.9091,
@@ -551,6 +551,129 @@
                  "width":0,
                  "x":400,
                  "y":272
+                }, 
+                {
+                 "height":0,
+                 "id":39,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"entity",
+                         "type":"string",
+                         "value":"enemy"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":240,
+                 "y":304
+                }, 
+                {
+                 "height":18.9091,
+                 "id":40,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"colType",
+                         "type":"string",
+                         "value":"enemyTurn"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":1.90909,
+                 "x":78.545455,
+                 "y":206.54545
+                },
+            
+                {
+                 "height":18.9091,
+                 "id":41,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"colType",
+                         "type":"string",
+                         "value":"enemyTurn"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":1.90909,
+                 "x":462.0625,
+                 "y":285
+                }, 
+                {
+                 "height":0,
+                 "id":42,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"entity",
+                         "type":"string",
+                         "value":"player"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":234.5,
+                 "y":-244
+                }, 
+                {
+                 "height":0,
+                 "id":43,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"entity",
+                         "type":"string",
+                         "value":"enemy"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":8,
+                 "y":16
+                }, 
+                {
+                 "height":18.9091,
+                 "id":44,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"colType",
+                         "type":"string",
+                         "value":"enemyTurn"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":1.90909,
+                 "x":-2.36363636363636,
+                 "y":-2
+                }, 
+                {
+                 "height":18.9091,
+                 "id":45,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"colType",
+                         "type":"string",
+                         "value":"enemyTurn"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":1.90909,
+                 "x":16.6818186363636,
+                 "y":-2.54545909090909
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -559,7 +682,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":39,
+ "nextobjectid":46,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.4",
@@ -574,7 +697,7 @@
          "margin":0,
          "name":"bricks",
          "spacing":0,
-         "tilecount":27,
+         "tilecount":0,
          "tileheight":16,
          "tilewidth":16
         }],
