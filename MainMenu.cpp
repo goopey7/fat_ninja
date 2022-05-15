@@ -22,6 +22,8 @@ void MainMenu::loadResources()
 {
 	fonts.load(Fonts::Arial,"font/arial.ttf");
 	fonts.load(Fonts::Pixel,"font/bit01.ttf");
+
+	song.openFromFile("music/fullSongDraft0.wav");
 }
 
 void MainMenu::buildGraph()

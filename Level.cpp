@@ -17,6 +17,7 @@ Level::Level(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld,cons
 	loadPlayerFromFile(fileName);
 	loadEntitiesFromFile(fileName);
 	buildGraph();
+	song.setLoop(true);
 }
 
 void Level::loadResources()
@@ -33,7 +34,6 @@ void Level::loadResources()
 	sfx.add(Sfx::Grapple,std::move(s));
 
 	song.openFromFile("music/Mixdown.wav");
-	//song.play();
 }
 
 void Level::buildGraph()
@@ -42,6 +42,10 @@ void Level::buildGraph()
 
 void Level::update(const float dt)
 {
+	// this way Level's children don't have to hear the first moment of Level's song
+	if(song.getStatus() != song.Playing)
+		song.play();
+
 	World::update(dt);
 }
 
