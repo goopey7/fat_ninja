@@ -459,8 +459,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":80.25,
-                 "y":75.25
+                 "x":80,
+                 "y":80
                 }, 
                 {
                  "height":0,
@@ -620,8 +620,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":234.5,
-                 "y":-244
+                 "x":64,
+                 "y":304
                 }, 
                 {
                  "height":0,
@@ -697,7 +697,7 @@
          "margin":0,
          "name":"bricks",
          "spacing":0,
-         "tilecount":0,
+         "tilecount":27,
          "tileheight":16,
          "tilewidth":16
         }],

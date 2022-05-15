@@ -23,6 +23,7 @@ void Level::loadResources()
 	// Manually Load Textures Here
 	textures.load(Textures::Mario,"art/marioSheet.png");
 	textures.load(Textures::Shuriken,"art/shuriken.png");
+	textures.load(Textures::Enemy,"art/enemyScaled.png");
 }
 
 void Level::update(const float dt)
@@ -51,7 +52,7 @@ void Level::loadEntitiesFromFile(const char* fileName)
 					if(object["properties"].at(0)["value"] == "enemy")
 					{
 						std::unique_ptr<Enemy> enemy(new Enemy(textures,this,player));
-						enemy->setTexture(Textures::Mario);
+						enemy->setTexture(Textures::Enemy);
 						sf::Vector2u textureSize = enemy->getTextureSize();
 						enemy->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));
 						enemy->setTextureRect(sf::IntRect(0.f,0.f,textureSize.x,textureSize.y));

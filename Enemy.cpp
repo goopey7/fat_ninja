@@ -11,7 +11,7 @@ Enemy::Enemy(const TextureHolder& textures, World* currentWorld, Mario* player)
 		walk.addFrame(sf::IntRect(i*walkWidth,0,walkWidth,walkHeight));
 	walk.setFrameSpeed(walkSpeed);
 
-	sprite.setTexture(textures.get(Textures::Mario));
+	sprite.setTexture(textures.get(Textures::Enemy));
 	sprite.setTextureRect(walk.getCurrentFrame());
 	sprite.setScale({1.2f,1.2f});
 
@@ -53,7 +53,7 @@ void Enemy::fixedUpdateCurrent(const float dt)
 	{
 		velocity.x = 0.f;
 		Shuriken* s = new Shuriken(textures,currentWorld);
-		s->setPosition(sf::Vector2f(getWorldPosition()));
+		s->setPosition(getWorldPosition() + sf::Vector2f((dir.x == 1.f) ? 14.f : 0.f,12.f));
 		s->setupTarget(player->getWorldPosition());
 		s->setTexture(Textures::Shuriken);
 		sf::Vector2u textureSize = s->getTextureSize();
@@ -83,6 +83,7 @@ Enemy::~Enemy()
 
 void Enemy::handleAnimations(const float dt)
 {
+	/*
 	if(fabs(velocity.x) != 0.f)
 	{
 		walk.play();
@@ -93,6 +94,7 @@ void Enemy::handleAnimations(const float dt)
 		walk.pause();
 		walk.setToInitialFrame();
 	}
+	*/
 	if(dir.x < 0.f)
 		walk.setFlipped(true);
 	else if(dir.x > 0.f)

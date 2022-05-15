@@ -12,6 +12,7 @@ namespace Textures
 		Bkg,
 		Mario,
 		Shuriken,
+		Enemy,
 		Size
 	};
 }
