@@ -49,21 +49,26 @@ void Enemy::fixedUpdateCurrent(const float dt)
 	sf::Vector2f playerPos = player->getWorldPosition();
 	//TODO add debug line for debug mode
 	//setLinePoints(rayOrigin-playerPos,(rayOrigin + (rayDir * rangeOfSight))-playerPos);
-	if(Collision::RayVsActor(rayOrigin,rayDir*rangeOfSight,player,cp,cn,hitTime))
+	if(timeSinceLastFire <= 0.f)
 	{
-		velocity.x = 0.f;
-		Shuriken* s = new Shuriken(textures,currentWorld);
-		s->setPosition(getWorldPosition() + sf::Vector2f((dir.x == 1.f) ? 14.f : 0.f,12.f));
-		s->setupTarget(player->getWorldPosition());
-		s->setTexture(Textures::Shuriken);
-		sf::Vector2u textureSize = s->getTextureSize();
-		s->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));
-		s->setTextureRect(sf::IntRect(0.f,0.f,textureSize.x,textureSize.y));
-		s->setIsDynamic(true);
-		s->setOrigin(textureSize.x/2.f, textureSize.y/2.f);
-		s->setCategory(Category::EnemyProjectile | Category::Actor);
-		spawn(new Node::NodePtr(s));
+		if(Collision::RayVsActor(rayOrigin,rayDir*rangeOfSight,player,cp,cn,hitTime) && minRangeToFire <= Vector<float>::distance(getWorldPosition(),player->getWorldPosition()))
+		{
+			velocity.x = 0.f;
+			Bullet* s = new Bullet(textures,currentWorld);
+			s->setTexture(Textures::Bullet);
+			sf::Vector2u textureSize = s->getTextureSize();
+			s->setPosition(getWorldPosition() + sf::Vector2f((dir.x == 1.f) ? 14.f + textureSize.x : textureSize.x,15.f));
+			s->setupTarget(sf::Vector2f(player->getWorldPosition().x,getWorldPosition().y + 15.f));
+			s->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));
+			s->setTextureRect(sf::IntRect(0.f,0.f,textureSize.x,textureSize.y));
+			s->setIsDynamic(true);
+			s->setOrigin(textureSize.x/2.f, textureSize.y/2.f);
+			s->setCategory(Category::Bullet | Category::Actor);
+			spawn(new Node::NodePtr(s));
+			timeSinceLastFire = fireRate;
+		}
 	}
+	timeSinceLastFire -= dt;
 }
 
 void Enemy::onCollisionEnter(Actor* other, sf::Vector2f& contactPoint, sf::Vector2f& contactNormal, float& hitTime, const float dt)

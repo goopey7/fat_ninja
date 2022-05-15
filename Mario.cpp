@@ -70,10 +70,12 @@ void Mario::fixedUpdateCurrent(const float dt)
 			ropeLength = Vector<float>::distance(grapplePos,ropePos);
 			shurikenDir = (thrownShuriken->getWorldPosition().x > getWorldPosition().x) ? (1) : (-1);
 			bMouseReleased = false;
+			thrownShuriken->setIsBeingUsed(true);
 		}
 		else if(thrownShuriken->hasHitWall() && !sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
 			state = Normal;
+			thrownShuriken->setIsBeingUsed(false);
 			thrownShuriken = nullptr;
 			bMouseReleased = true;
 			line->setPoints(sf::Vector2f(0.f,0.f),sf::Vector2f(0.f,0.f));
@@ -148,7 +150,14 @@ std::string Mario::getVelocity()
 void Mario::updateView()
 {
 	sf::View view = window->getView();
-	view.setCenter(getWorldPosition());
+	if(getCategory() & Category::PlayerCharacter)
+	{
+		view.setCenter(getWorldPosition());
+	}
+	else
+	{
+		view.setCenter(getWorldPosition().x,400.f);
+	}
 	window->setView(view);
 }
 
@@ -157,6 +166,10 @@ void Mario::onCollisionEnter(Actor* other, sf::Vector2f& contactPoint, sf::Vecto
 	if(contactNormal.y == -1.f)
 	{
 		bCanJump = true;
+	}
+	if(other->getCategory() & Category::OriginTP)
+	{
+		setPosition(3000.f,123.f);
 	}
 }
 

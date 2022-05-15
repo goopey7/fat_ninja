@@ -48,7 +48,7 @@ void Shuriken::stopMoving()
 
 void Shuriken::onDynamicVsDynamicEnter(Actor* other)
 {
-	if(other->getCategory() & Category::Enemy && !(getCategory() & Category::EnemyProjectile))
+	if(other->getCategory() & Category::Enemy)
 	{
 		// apply damage to self
 		other->applyDamage(getDamage());
@@ -61,5 +61,15 @@ void Shuriken::onDynamicVsDynamicEnter(Actor* other)
 void Shuriken::fixedUpdateCurrent(const float dt)
 {
 	Actor::fixedUpdateCurrent(dt);
+	timeAlive+=dt;
+	if(timeAlive>=lifeTime && !bIsBeingUsed)
+	{
+		die();
+	}
+}
+
+void Shuriken::setIsBeingUsed(bool isUsing)
+{
+	bIsBeingUsed = isUsing;
 }
 

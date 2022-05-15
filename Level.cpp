@@ -6,7 +6,7 @@ Level::Level(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld)
 	: World(window,currentWorld)
 {
 	loadResources();
-	viewScale = .15f;
+	buildGraph();
 }
 
 Level::Level(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld,const char* fileName)
@@ -16,6 +16,7 @@ Level::Level(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld,cons
 	loadFromFile(fileName,textures,Textures::Size);
 	loadPlayerFromFile(fileName);
 	loadEntitiesFromFile(fileName);
+	buildGraph();
 }
 
 void Level::loadResources()
@@ -24,15 +25,16 @@ void Level::loadResources()
 	textures.load(Textures::Mario,"art/marioSheet.png");
 	textures.load(Textures::Shuriken,"art/shuriken.png");
 	textures.load(Textures::Enemy,"art/enemyScaled.png");
+	textures.load(Textures::Bullet,"art/flatBullet.png");
+}
+
+void Level::buildGraph()
+{
 }
 
 void Level::update(const float dt)
 {
 	World::update(dt);
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::M))
-	{
-		currentWorld->reset(new MainMenu(window,currentWorld));
-	}
 }
 
 void Level::loadEntitiesFromFile(const char* fileName)
@@ -80,9 +82,15 @@ void Level::loadPlayerFromFile(const char* fileName)
 			{
 				if(object["properties"].at(0)["name"] == "entity")
 				{
-					if(object["properties"].at(0)["value"] == "player")
+					bool bIsMenuPlayer = object["properties"].at(0)["value"] == "menuPlayer";
+					if(object["properties"].at(0)["value"] == "player" || bIsMenuPlayer)
 					{
 						std::unique_ptr<Mario> mario(new Mario(textures,this,&window));
+						if(bIsMenuPlayer)
+						{
+							mario->setCategory(Category::MenuPlayer & Category::Actor);
+							mario->setDir(1);
+						}
 						mario->setTexture(Textures::Mario);
 						sf::Vector2u textureSize = mario->getTextureSize();
 						mario->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));

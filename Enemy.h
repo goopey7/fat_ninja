@@ -2,7 +2,7 @@
 #pragma once
 
 #include "gf/Actor.h"
-#include "Shuriken.h"
+#include "Bullet.h"
 #include "gf/Animation.h"
 #include "Resources.h"
 #include "gf/Collision.h"
@@ -33,7 +33,10 @@ class Enemy : public Actor
 		sf::Vector2f dir = {1.f,0.f};
 		float speed = 22.f;
 
-		float rangeOfSight = 100.f;
+		const float rangeOfSight = 100.f;
+		const float minRangeToFire = 30.f;
+		const float fireRate = 0.5f;
+		float timeSinceLastFire = 0.f;
 
 		Mario* player;
 };

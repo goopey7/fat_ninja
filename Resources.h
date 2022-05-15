@@ -13,6 +13,7 @@ namespace Textures
 		Mario,
 		Shuriken,
 		Enemy,
+		Bullet,
 		Size
 	};
 }

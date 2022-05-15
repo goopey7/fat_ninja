@@ -5,7 +5,6 @@
 #include "Resources.h"
 #include "Mario.h"
 #include "Enemy.h"
-#include "MainMenu.h"
 
 class Level : public World
 {
@@ -15,6 +14,7 @@ class Level : public World
 		virtual void update(const float dt) override;
 	protected:
 		virtual void loadResources() override;
+		virtual void buildGraph() override;
 		TextureHolder textures;
 	private:
 		void loadEntitiesFromFile(const char* fileName);

@@ -2,22 +2,20 @@
 
 #include "MainMenu.h"
 
-MainMenu::MainMenu(sf::RenderWindow& window, std::unique_ptr<World>* currentLevel)
-	: World(window,currentLevel), window(&window) 
+MainMenu::MainMenu(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld)
+	: Level(window,currentWorld), window(&window) 
 {
+	viewScale = 1.f;
 	loadResources();
 	buildGraph();
-	viewScale = 1.f;
-	/*
-	float viewScale = 1.f;
-	sf::FloatRect windowRect(0.f,0.f,window.getSize().x*viewScale,window.getSize().y*viewScale);
-	window.setView(sf::View(windowRect));
-	*/
+}
 
-	std::cout << "MAIN MENU LEVEL\n";
-	std::cout << this->currentWorld << std::endl;
-	std::unique_ptr<MainMenuHUD> menu(new MainMenuHUD(fonts,&window,currentLevel));
-	addNode(&menu,HUD);
+MainMenu::MainMenu(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld,const char* fileName)
+	: Level(window,currentWorld,fileName), window(&window)
+{
+	viewScale = 1.f;
+	loadResources();
+	buildGraph();
 }
 
 void MainMenu::loadResources()
@@ -28,4 +26,7 @@ void MainMenu::loadResources()
 
 void MainMenu::buildGraph()
 {
+	std::unique_ptr<MainMenuHUD> menu(new MainMenuHUD(fonts,window,currentWorld));
+	addNode(&menu,HUD);
 }
+

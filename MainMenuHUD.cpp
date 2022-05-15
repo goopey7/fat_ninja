@@ -18,11 +18,14 @@ MainMenuHUD::~MainMenuHUD()
 
 void MainMenuHUD::updateCurrent(const float dt)
 {
+	sf::Vector2f centerPos = window->mapPixelToCoords(sf::Vector2i(0,0)) + Vector<unsigned int>::divide(window->getSize(),2);
+	playButton->setPosition(centerPos);
 	if(playButton->isClicked(sf::Color::Cyan))
 	{
 	}
 	else if(playButton->isHeld(sf::Color::Green))
-	{}
+	{
+	}
 	else if(playButton->isReleased(sf::Color::Magenta))
 	{
 		std::cout << currentWorld << std::endl;
