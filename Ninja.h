@@ -33,6 +33,7 @@ class Ninja : public Actor
 		{
 			Normal,
 			Swinging,
+			WallJump,
 		}; 
 
 		State getState();
@@ -40,6 +41,12 @@ class Ninja : public Actor
 	private:
 		sf::Vector2f dir = {0.f,0.f};
 		float gravity = 98.1f*6.f;
+
+		float wallJumpGravity = 98.1f*2.f;
+		float wallJumpSpeedX = 100.f;
+		float wallJumpSpeedY = 150.f*2.f;
+		bool bHasWallJumped = false;
+
 		float jumpSpeed = 150.f*2.f;
 		float maxSpeed = 110.f;
 

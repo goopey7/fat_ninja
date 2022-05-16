@@ -63,6 +63,7 @@ void Ninja::fixedUpdateCurrent(const float dt)
 		{
 			// INITIAL CALCULATIONS BEFORE SWING STARTS
 			state = Swinging;
+			bCanJump = false;
 			grapplePos = thrownShuriken->getWorldPosition();
 			ropePos = getWorldPosition();
 			ropeAngleVelocity = 0;
@@ -87,7 +88,8 @@ void Ninja::fixedUpdateCurrent(const float dt)
 	{
 		case Normal:
 			{
-				velocity.x = dir.x * maxSpeed;
+				if(!bHasWallJumped)
+					velocity.x = dir.x * maxSpeed;
 				velocity.y += gravity * dt;
 			}
 			break;
@@ -114,15 +116,32 @@ void Ninja::fixedUpdateCurrent(const float dt)
 						+sf::Vector2f(thrownShuriken->getCollisionBox().width/2.f,thrownShuriken->getCollisionBox().height/2.f));
 			}
 			break;
+		case WallJump:
+			{
+				if(bCanJump)
+					velocity.y += wallJumpGravity * dt;
+				else
+					velocity.y += gravity * dt;
+			}
 	}
 	updateView();
 }
 
 void Ninja::jump()
 {
-	if(bCanJump)
+	if(state == WallJump)
+	{
+		velocity.x = -dir.x * wallJumpSpeedX;
+		velocity.y = -wallJumpSpeedY;
+		bCanJump = false;
+		bHasWallJumped = true;
+		state = Normal;
+	}
+	else if(bCanJump && state == State::Normal)
+	{
+		bCanJump = false;
 		velocity.y = -jumpSpeed;
-	bCanJump = false;
+	}
 }
 
 void Ninja::crouch()
@@ -164,10 +183,21 @@ void Ninja::updateView()
 
 void Ninja::onCollisionEnter(Actor* other, sf::Vector2f& contactPoint, sf::Vector2f& contactNormal, float& hitTime, const float dt)
 {
-	if(contactNormal.y == -1.f)
+	if(contactNormal.y == -1.f && state != Swinging)
 	{
 		bCanJump = true;
+		bHasWallJumped = false;
+		state = Normal;
 	}
+
+	// wall jump
+	if(contactNormal.x != 0.f && state != Swinging && contactNormal.y == 0.f)
+	{
+		bCanJump = false;
+		state = WallJump;
+	}
+
+	// for main menu level
 	if(other->getCategory() & Category::OriginTP)
 	{
 		setPosition(3000.f,123.f);
