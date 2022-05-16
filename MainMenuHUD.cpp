@@ -29,7 +29,8 @@ void MainMenuHUD::updateCurrent(const float dt)
 	else if(playButton->isReleased(sf::Color::Magenta))
 	{
 		std::cout << currentWorld << std::endl;
-		currentWorld->get()->changeWorld(new Level(*window, currentWorld,"levels/wallJumpTest.tmj"));
+		currentWorld->get()->changeWorld(new Level(*window, currentWorld,"levels/grappleTest.json"));
+		//currentWorld->get()->changeWorld(new Level(*window, currentWorld,"levels/wallJumpTest.tmj"));
 	}
 	else if(playButton->isHovered(sf::Color::Red))
 	{}

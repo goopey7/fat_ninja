@@ -20,6 +20,14 @@ Level::Level(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld,cons
 	song.setLoop(true);
 }
 
+void Level::addSfx(Sfx::ID id, const char* fileName)
+{
+	soundBuffers.load(id,fileName);
+	std::unique_ptr<sf::Sound> s(new sf::Sound());
+	s->setBuffer(soundBuffers.get(id));
+	sfx.add(id,std::move(s));
+}
+
 void Level::loadResources()
 {
 	// Manually Load Resources Here
@@ -28,14 +36,11 @@ void Level::loadResources()
 	textures.load(Textures::Enemy,"art/enemyScaled.png");
 	textures.load(Textures::Bullet,"art/flatBullet.png");
 
-	soundBuffers.load(Sfx::Grapple,"sfx/grapple.ogg");
-	std::unique_ptr<sf::Sound> s(new sf::Sound());
-	s->setBuffer(soundBuffers.get(Sfx::Grapple));
-	sfx.add(Sfx::Grapple,std::move(s));
+	addSfx(Sfx::Grapple,"sfx/grapple.ogg");
+	addSfx(Sfx::Death,"sfx/villager.wav");
 
 	song.openFromFile("music/Mixdown.wav");
 }
-
 void Level::buildGraph()
 {
 }
@@ -48,6 +53,7 @@ void Level::update(const float dt)
 
 	World::update(dt);
 }
+
 
 void Level::loadEntitiesFromFile(const char* fileName)
 {
@@ -122,4 +128,6 @@ Level::~Level()
 {
 	song.stop();
 }
+
+
 

@@ -19,6 +19,7 @@ class Level : public World
 		TextureHolder textures;
 		Player sfx;
 		SoundHolder soundBuffers;
+		void addSfx(Sfx::ID id, const char* fileName);
 	private:
 		void loadEntitiesFromFile(const char* fileName);
 		void loadPlayerFromFile(const char* fileName);

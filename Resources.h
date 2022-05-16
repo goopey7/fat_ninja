@@ -33,7 +33,8 @@ namespace Sfx
 	{
 		// insert Sound IDs here
 		Grapple,
-		Size
+		Death,
+		Size,
 	};
 }
 // insert more enums for additional types here
