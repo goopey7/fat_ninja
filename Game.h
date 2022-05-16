@@ -45,6 +45,7 @@ class Game
 		float currentScale = 1.f;
 
 		World* worldPrev;
+		//TODO Make a world queue so we aren't creating new worlds all the time
 
 		void changeScale();
 };

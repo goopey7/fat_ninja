@@ -35,6 +35,7 @@ void Level::loadResources()
 	textures.load(Textures::Shuriken,"art/shuriken.png");
 	textures.load(Textures::Enemy,"art/enemyScaled.png");
 	textures.load(Textures::Bullet,"art/flatBullet.png");
+	textures.load(Textures::Win,"art/win.png");
 
 	fonts.load(Fonts::Arial,"font/arial.ttf");
 	fonts.load(Fonts::Pixel,"font/bit01.ttf");
@@ -123,6 +124,17 @@ void Level::loadPlayerFromFile(const char* fileName)
 						ninja->setIsDynamic(true);
 						player = ninja.get();
 						addNode(&ninja,Entity);
+					}
+				}
+				else if(object["properties"].at(0)["name"] == "pickup")
+				{
+					if(object["properties"].at(0)["value"] == "win")
+					{
+						std::unique_ptr<Win> win(new Win(sfx,textures,this));
+						win->setTexture(Textures::Win);
+						sf::Vector2u textureSize = win->getTextureSize();
+						win->setPosition((float)object["x"] - textureSize.x/2.f,(float)object["y"] - textureSize.y);
+						addNode(&win,Entity);
 					}
 				}
 			}

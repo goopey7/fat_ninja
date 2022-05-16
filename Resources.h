@@ -14,6 +14,7 @@ namespace Textures
 		Shuriken,
 		Enemy,
 		Bullet,
+		Win,
 		Size
 	};
 }
@@ -34,7 +35,7 @@ namespace Sfx
 		// insert Sound IDs here
 		Grapple,
 		Death,
-		Size,
+		Size
 	};
 }
 // insert more enums for additional types here

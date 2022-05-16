@@ -6,6 +6,7 @@
 #include "Ninja.h"
 #include "Enemy.h"
 #include "GameHUD.h"
+#include "Win.h"
 
 class Level : public World
 {

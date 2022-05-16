@@ -638,6 +638,24 @@
                  "width":1.90909,
                  "x":16.6818186363636,
                  "y":-2.54545909090909
+                }, 
+                {
+                 "height":0,
+                 "id":47,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"pickup",
+                         "type":"string",
+                         "value":"win"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":176,
+                 "y":304
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -646,7 +664,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":47,
+ "nextobjectid":48,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.4",
@@ -661,7 +679,7 @@
          "margin":0,
          "name":"bricks",
          "spacing":0,
-         "tilecount":27,
+         "tilecount":0,
          "tileheight":16,
          "tilewidth":16
         }],
