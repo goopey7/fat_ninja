@@ -89,6 +89,10 @@ void Game::update(const float dt)
 void Game::fixedUpdate(const float dt)
 {
 	(*world)->fixedUpdate(dt);
+
+	//TODO Game Over Screen!!
+	if((*world)->gameOver())
+		(*world)->changeWorld(new MainMenu(*window,world,"levels/mainMenu.tmj"));
 }
 
 void Game::render()

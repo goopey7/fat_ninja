@@ -42,6 +42,17 @@ void Bullet::stopMoving()
 
 void Bullet::onDynamicVsDynamicEnter(Actor* other)
 {
+	if(other->getCategory() & Category::PlayerCharacter)
+	{
+		die();
+		sfx.get(Sfx::Death).play();
+		std::cout << "Player Health = " << other->getHealth() << std::endl;
+		other->applyDamage(damage);
+		if(other->getHealth() <= 0.f)
+		{
+			other->die();
+		}
+	}
 }
 
 void Bullet::fixedUpdateCurrent(const float dt)

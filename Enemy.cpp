@@ -107,12 +107,3 @@ void Enemy::handleAnimations(const float dt)
 	sprite.setTextureRect(walk.getCurrentFrame());
 }
 
-void Enemy::onDynamicVsDynamicEnter(Actor* other)
-{
-	if(other->getCategory() & Category::PlayerCharacter)
-	{
-		// apply damage to player
-		other->applyDamage(damage);
-	}
-}
-

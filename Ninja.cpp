@@ -183,6 +183,11 @@ void Ninja::updateView()
 
 void Ninja::onCollisionEnter(Actor* other, sf::Vector2f& contactPoint, sf::Vector2f& contactNormal, float& hitTime, const float dt)
 {
+	if(other->getCategory() == Category::Bullet)
+	{
+		// game over
+		sfx.get(Sfx::Death).play();
+	}
 	if(contactNormal.y == -1.f && state != Swinging)
 	{
 		bCanJump = true;
