@@ -81,7 +81,7 @@ NinjaController::NinjaController(sf::RenderWindow* window)
 		{
 			sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
 			sf::Vector2f mWorldPos = window->mapPixelToCoords(mousePos);
-			std::unique_ptr<Shuriken> shuriken(new Shuriken(ninja.getSfx(),ninja.getTextures(),ninja.getWorld()));
+			std::unique_ptr<Shuriken> shuriken(new Shuriken(ninja.getHUD(),ninja.getSfx(),ninja.getTextures(),ninja.getWorld()));
 			shuriken->setTexture(Textures::Shuriken);
 			sf::Vector2u textureSize = shuriken->getTextureSize();
 			shuriken->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));

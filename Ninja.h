@@ -7,11 +7,12 @@
 #include "gf/Line.h"
 #include "Shuriken.h"
 #include "Resources.h"
+#include "GameHUD.h"
 
 class Ninja : public Actor
 {
 	public:
-		Ninja(Player& sounds, const TextureHolder& textures, World* currentWorld, sf::RenderWindow* window);
+		Ninja(GameHUD* hud,Player& sounds, const TextureHolder& textures, World* currentWorld, sf::RenderWindow* window);
 		~Ninja();
 
 		void handleAnimations(const float dt);
@@ -28,6 +29,7 @@ class Ninja : public Actor
 		std::string getVelocity();
 		void updateView();
 		void setShuriken(Shuriken& shuriken);
+		GameHUD* getHUD();
 
 		enum State
 		{
@@ -80,5 +82,7 @@ class Ninja : public Actor
 		bool bMouseReleased = true;
 
 		Line* line;
+
+		GameHUD* hud = nullptr;
 };
 

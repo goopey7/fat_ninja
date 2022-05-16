@@ -2,8 +2,8 @@
 #include "Ninja.h"
 #include <cmath>
 
-Ninja::Ninja(Player& sounds,const TextureHolder& textures, World* currentWorld, sf::RenderWindow* window)
-	: Actor(sounds,textures,currentWorld), window(window), view(window->getView())
+Ninja::Ninja(GameHUD* hud,Player& sounds,const TextureHolder& textures, World* currentWorld, sf::RenderWindow* window)
+	: Actor(sounds,textures,currentWorld), window(window), view(window->getView()), hud(hud)
 {
 	setCategory(Category::PlayerCharacter | Category::Actor);
 	for(int i=0; i<walkFrames; i++)
@@ -56,6 +56,8 @@ void Ninja::updateCurrent(const float dt)
 void Ninja::fixedUpdateCurrent(const float dt)
 {
 	Actor::fixedUpdateCurrent(dt);
+
+	hud->updateHealth(health);
 
 	if(thrownShuriken != nullptr)
 	{
@@ -237,5 +239,10 @@ Ninja::~Ninja()
 void Ninja::setLinePoints(sf::Vector2f p1, sf::Vector2f p2)
 {
 	line->setPoints(p1,p2);
+}
+
+GameHUD* Ninja::getHUD() 
+{
+	return hud;
 }
 

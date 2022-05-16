@@ -27,5 +27,6 @@ class Level : public World
 		void loadPlayerFromFile(const char* fileName);
 
 		Ninja* player;
+		GameHUD* hud;
 };
 

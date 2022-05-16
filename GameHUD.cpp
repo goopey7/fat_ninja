@@ -7,8 +7,8 @@ GameHUD::GameHUD(FontHolder& fonts, sf::RenderWindow& window)
 	: window(&window)
 {
 	playerHealth = new Text(window,fonts.get(Fonts::Pixel));
-	playerHealth->anchorTo(Anchor::TopLeft);
-	enemiesKilled = new Text(window,fonts.get(Fonts::Arial));
+	playerHealth->anchorTo(Anchor::BottomLeft);
+	enemiesKilled = new Text(window,fonts.get(Fonts::Pixel));
 	enemiesKilled->anchorTo(Anchor::BottomRight);
 }
 

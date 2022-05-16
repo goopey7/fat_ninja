@@ -6,12 +6,14 @@ Level::Level(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld)
 	: World(window,currentWorld)
 {
 	loadResources();
+	buildGraph();
 }
 
 Level::Level(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld,const char* fileName)
 	: World(window,currentWorld)
 {
 	loadResources();
+	buildGraph();
 	loadFromFile(fileName,sfx,textures,Textures::Size);
 	loadPlayerFromFile(fileName);
 	loadEntitiesFromFile(fileName);
@@ -45,6 +47,7 @@ void Level::loadResources()
 void Level::buildGraph()
 {
 	std::unique_ptr<GameHUD> hud(new GameHUD(fonts,window));
+	this->hud = hud.get();
 	addNode(&hud,HUD);
 }
 
@@ -106,7 +109,7 @@ void Level::loadPlayerFromFile(const char* fileName)
 					bool bIsMenuPlayer = object["properties"].at(0)["value"] == "menuPlayer";
 					if(object["properties"].at(0)["value"] == "player" || bIsMenuPlayer)
 					{
-						std::unique_ptr<Ninja> ninja(new Ninja(sfx, textures, this, &window));
+						std::unique_ptr<Ninja> ninja(new Ninja(hud,sfx, textures, this, &window));
 						if(bIsMenuPlayer)
 						{
 							ninja->setCategory(Category::MenuPlayer & Category::Actor);

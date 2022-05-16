@@ -5,11 +5,12 @@
 #include "gf/Vector.h"
 #include "gf/Line.h"
 #include "Resources.h"
+#include "GameHUD.h"
 
 class Shuriken : public Actor
 {
 	public:
-		Shuriken(Player& sounds,const TextureHolder& textures, World* world);
+		Shuriken(GameHUD* hud,Player& sounds,const TextureHolder& textures, World* world);
 		~Shuriken();
 		//virtual void updateCurrent(const float dt) override;
 		//virtual void fixedUpateCurrent(const float dt) override;
@@ -32,5 +33,7 @@ class Shuriken : public Actor
 		const float lifeTime = 3.f; // in seconds
 		float timeAlive = 0.f;
 		bool bIsBeingUsed = false;
+
+		GameHUD* hud = nullptr;
 };
 

@@ -3,8 +3,8 @@
 #include "Shuriken.h"
 #include <cmath>
 
-Shuriken::Shuriken(Player& sounds,const TextureHolder& textures, World* world)
-	: Actor(sounds,textures,world)
+Shuriken::Shuriken(GameHUD* hud,Player& sounds,const TextureHolder& textures, World* world)
+	: Actor(sounds,textures,world), hud(hud)
 {
 	setCategory(Category::Shuriken | Category::Actor);
 }
@@ -56,6 +56,7 @@ void Shuriken::onDynamicVsDynamicEnter(Actor* other)
 		sfx.get(Sfx::Death).play();
 		other->die();
 		die();
+		hud->addKill();
 	}
 }
 
