@@ -7,6 +7,7 @@ Shuriken::Shuriken(GameHUD* hud,Player& sounds,const TextureHolder& textures, Wo
 	: Actor(sounds,textures,world), hud(hud)
 {
 	setCategory(Category::Shuriken | Category::Actor);
+	damage = 10.f;
 }
 
 void Shuriken::setupTarget(sf::Vector2f target)
@@ -50,13 +51,24 @@ void Shuriken::onDynamicVsDynamicEnter(Actor* other)
 {
 	if(other->getCategory() & Category::Enemy && velocity != sf::Vector2f(0.f,0.f))
 	{
-		// apply damage to self
+		// apply damage to enemy
 		other->applyDamage(getDamage());
 		std::cout << "Hit Enemy!\n";
 		sfx.get(Sfx::Death).play();
-		other->die();
-		die();
-		hud->addKill();
+		if(other->getHealth() <= 0.f)
+		{
+			hud->addKill();
+			other->die();
+			die();
+			hitOther = nullptr;
+		}
+		else
+		{
+			bHitWall = true;
+			velocity = sf::Vector2f(0.f,0.f);
+			hitOther = other;
+			relativePos = sf::Vector2f(getWorldPosition() - other->getWorldPosition());
+		}
 	}
 }
 
@@ -67,6 +79,12 @@ void Shuriken::fixedUpdateCurrent(const float dt)
 	if(timeAlive>=lifeTime && !bIsBeingUsed)
 	{
 		die();
+	}
+
+	if(hitOther != nullptr)
+	{
+		setPosition(relativePos + hitOther->getWorldPosition());
+		std::cout << "uhhhhhhhh\n";
 	}
 }
 

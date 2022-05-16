@@ -35,5 +35,7 @@ class Shuriken : public Actor
 		bool bIsBeingUsed = false;
 
 		GameHUD* hud = nullptr;
+		Actor* hitOther = nullptr;
+		sf::Vector2f relativePos;
 };
 
