@@ -18,8 +18,6 @@ MainMenuHUD::~MainMenuHUD()
 
 void MainMenuHUD::updateCurrent(const float dt)
 {
-	sf::Vector2f centerPos = window->mapPixelToCoords(sf::Vector2i(0,0)) + Vector<unsigned int>::divide(window->getSize(),2);
-	playButton->setPosition(centerPos);
 	if(playButton->isClicked(sf::Color::Cyan))
 	{
 	}
@@ -41,5 +39,11 @@ void MainMenuHUD::updateCurrent(const float dt)
 void MainMenuHUD::drawCurrent(sf::RenderTarget& target, const sf::RenderStates& states) const
 {
 	target.draw(*playButton,states);
+}
+
+void MainMenuHUD::fixedUpdateCurrent(const float dt)
+{
+	sf::Vector2f centerPos = window->mapPixelToCoords(sf::Vector2i(0,0)) + Vector<unsigned int>::divide(window->getSize(),2);
+	playButton->setPosition(centerPos);
 }
 

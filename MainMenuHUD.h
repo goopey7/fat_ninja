@@ -11,6 +11,7 @@ class MainMenuHUD : public Node
 		MainMenuHUD(FontHolder& fonts,sf::RenderWindow* window, std::unique_ptr<World>* currentWorld);
 		~MainMenuHUD();
 		virtual void updateCurrent(const float dt) override;
+		virtual void fixedUpdateCurrent(const float dt) override;
 		virtual void drawCurrent(sf::RenderTarget& target, const sf::RenderStates& states) const override;
 
 	protected:
