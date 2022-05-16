@@ -49,11 +49,11 @@ void Enemy::fixedUpdateCurrent(const float dt)
 	sf::Vector2f playerPos = player->getWorldPosition();
 	//TODO add debug line for debug mode
 	//setLinePoints(rayOrigin-playerPos,(rayOrigin + (rayDir * rangeOfSight))-playerPos);
-	if(timeSinceLastFire <= 0.f)
+	if(Collision::RayVsActor(rayOrigin,rayDir*rangeOfSight,player,cp,cn,hitTime) && minRangeToFire <= Vector<float>::distance(getWorldPosition(),player->getWorldPosition()))
 	{
-		if(Collision::RayVsActor(rayOrigin,rayDir*rangeOfSight,player,cp,cn,hitTime) && minRangeToFire <= Vector<float>::distance(getWorldPosition(),player->getWorldPosition()))
+		velocity.x = 0.f;
+		if(timeSinceLastFire <= 0.f)
 		{
-			velocity.x = 0.f;
 			Bullet* s = new Bullet(sfx,textures,currentWorld);
 			s->setTexture(Textures::Bullet);
 			sf::Vector2u textureSize = s->getTextureSize();
