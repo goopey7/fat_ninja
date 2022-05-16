@@ -7,7 +7,6 @@ MainMenu::MainMenu(sf::RenderWindow& window, std::unique_ptr<World>* currentWorl
 {
 	viewScale = 1.f;
 	loadResources();
-	buildGraph();
 }
 
 MainMenu::MainMenu(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld,const char* fileName)
@@ -15,7 +14,6 @@ MainMenu::MainMenu(sf::RenderWindow& window, std::unique_ptr<World>* currentWorl
 {
 	viewScale = 1.f;
 	loadResources();
-	buildGraph();
 }
 
 void MainMenu::loadResources()

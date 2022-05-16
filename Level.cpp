@@ -6,7 +6,6 @@ Level::Level(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld)
 	: World(window,currentWorld)
 {
 	loadResources();
-	buildGraph();
 }
 
 Level::Level(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld,const char* fileName)
@@ -16,7 +15,6 @@ Level::Level(sf::RenderWindow& window, std::unique_ptr<World>* currentWorld,cons
 	loadFromFile(fileName,sfx,textures,Textures::Size);
 	loadPlayerFromFile(fileName);
 	loadEntitiesFromFile(fileName);
-	buildGraph();
 	song.setLoop(true);
 }
 
@@ -36,6 +34,9 @@ void Level::loadResources()
 	textures.load(Textures::Enemy,"art/enemyScaled.png");
 	textures.load(Textures::Bullet,"art/flatBullet.png");
 
+	fonts.load(Fonts::Arial,"font/arial.ttf");
+	fonts.load(Fonts::Pixel,"font/bit01.ttf");
+
 	addSfx(Sfx::Grapple,"sfx/grapple.ogg");
 	addSfx(Sfx::Death,"sfx/villager.wav");
 
@@ -43,6 +44,8 @@ void Level::loadResources()
 }
 void Level::buildGraph()
 {
+	std::unique_ptr<GameHUD> hud(new GameHUD(fonts,window));
+	addNode(&hud,HUD);
 }
 
 void Level::update(const float dt)

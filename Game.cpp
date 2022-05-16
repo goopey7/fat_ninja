@@ -34,6 +34,7 @@ Game::Game()
 	initWindow();
 	world = new std::unique_ptr<World>(nullptr);
 	world->reset(new MainMenu(*window,world,"levels/mainMenu.tmj"));
+	world->get()->buildGraph();
 	worldPrev = world->get();
 	std::cout << "GAME\n";
 	std::cout << world << std::endl;
