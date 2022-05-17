@@ -34,6 +34,7 @@ void Game::initLevelFiles()
 	levelFiles.push_back("levels/mainMenu.tmj");
 	levelFiles.push_back("levels/grappleTest.json");
 	levelFiles.push_back("levels/wallJumpTest.tmj");
+	levelFiles.push_back("levels/challenge.tmj");
 }
 
 Game::Game()
@@ -115,7 +116,11 @@ void Game::fixedUpdate(const float dt)
 			world->get()->changeWorld(new Level(*window,world,levelFiles[levelDiedOn]));
 		}
 		else
-			world->get()->changeWorld(new Level(*window,world,levelFiles[world->get()->getID()+1]));
+		{
+			if(world->get()->getID()+1 != levelFiles.size())
+				world->get()->changeWorld(new Level(*window,world,levelFiles[world->get()->getID()+1]));
+			else world->get()->changeWorld(new MainMenu(*window,world,"levels/mainMenu.tmj"));
+		}
 	}
 }
 
