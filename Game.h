@@ -23,6 +23,7 @@ class Game
 		Game();
 		~Game();
 		void initWindow();
+		void initLevelFiles();
 
 		void handleEvents();
 		void update(const float dt);
@@ -45,8 +46,10 @@ class Game
 		float currentScale = 1.f;
 
 		World* worldPrev;
-		//TODO Make a world queue so we aren't creating new worlds all the time
 
 		void changeScale();
+
+		// map level IDs to level file paths
+		std::vector<const char*> levelFiles;
 };
 

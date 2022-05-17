@@ -29,9 +29,17 @@ void Game::initWindow()
 	window->setVerticalSyncEnabled(vSyncEnabled);
 }
 
+void Game::initLevelFiles()
+{
+	levelFiles.push_back("levels/mainMenu.tmj");
+	levelFiles.push_back("levels/grappleTest.json");
+	levelFiles.push_back("levels/wallJumpTest.tmj");
+}
+
 Game::Game()
 { 
 	initWindow();
+	initLevelFiles();
 	world = new std::unique_ptr<World>(nullptr);
 	world->reset(new MainMenu(*window,world,"levels/mainMenu.tmj"));
 	worldPrev = world->get();
@@ -92,10 +100,11 @@ void Game::fixedUpdate(const float dt)
 
 	//TODO Game Over Screen!!
 	if((*world)->gameOver())
-		(*world)->changeWorld(new MainMenu(*window,world,"levels/mainMenu.tmj"));
+		(*world)->changeWorld(new MainMenu(*window,world,levelFiles[0]));
 
+	// advance to the next level
 	else if((*world)->complete())
-		(*world)->changeWorld(new MainMenu(*window,world,"levels/mainMenu.tmj"));
+		world->get()->changeWorld(new Level(*window,world,levelFiles[world->get()->getID()+1]));
 }
 
 void Game::render()
@@ -144,4 +153,5 @@ void Game::run()
 		render();
 	}
 }
+
 
