@@ -15,6 +15,7 @@
 #include "EmptyLevel.h"
 #include "Level.h"
 #include "NinjaController.h"
+#include "GameOver.h"
 
 // Game/App wrapper
 class Game
@@ -51,5 +52,9 @@ class Game
 
 		// map level IDs to level file paths
 		std::vector<const char*> levelFiles;
+
+		bool inGameOver = false;
+
+		int levelDiedOn = -1;
 };
 

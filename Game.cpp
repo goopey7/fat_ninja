@@ -100,11 +100,23 @@ void Game::fixedUpdate(const float dt)
 
 	//TODO Game Over Screen!!
 	if((*world)->gameOver())
-		(*world)->changeWorld(new MainMenu(*window,world,levelFiles[0]));
+	{
+		levelDiedOn = world->get()->getID();
+		(*world)->changeWorld(new GameOver(*window,world,world->get()->getID(),levelFiles));
+		inGameOver = true;
+	}
 
 	// advance to the next level
 	else if((*world)->complete())
-		world->get()->changeWorld(new Level(*window,world,levelFiles[world->get()->getID()+1]));
+	{
+		if(inGameOver)
+		{
+			inGameOver = false;
+			world->get()->changeWorld(new Level(*window,world,levelFiles[levelDiedOn]));
+		}
+		else
+			world->get()->changeWorld(new Level(*window,world,levelFiles[world->get()->getID()+1]));
+	}
 }
 
 void Game::render()
@@ -136,8 +148,6 @@ void Game::run()
 		if(!bPause)
 		{
 			update(dt.asSeconds());
-
-		
 		}
 
 		// Fixed Time Events
