@@ -6,9 +6,12 @@ Ninja::Ninja(GameHUD* hud,Player& sounds,const TextureHolder& textures, World* c
 	: Actor(sounds,textures,currentWorld), window(window), view(window->getView()), hud(hud)
 {
 	setCategory(Category::PlayerCharacter | Category::Actor);
+
 	for(int i=0; i<walkFrames; i++)
 		walk.addFrame(sf::IntRect(i*walkWidth,0,walkWidth,walkHeight));
 	walk.setFrameSpeed(walkSpeed);
+
+	wallJump.addFrame(sf::IntRect(0,wallJumpHeight,wallJumpWidth,wallJumpHeight));
 
 	sprite.setTexture(textures.get(Textures::Ninja));
 	sprite.setTextureRect(walk.getCurrentFrame());
@@ -31,21 +34,32 @@ Ninja::Ninja(GameHUD* hud,Player& sounds,const TextureHolder& textures, World* c
 
 void Ninja::handleAnimations(const float dt)
 {	
-	if(fabs(velocity.x) != 0.f)
+	if(state != WallJump)
 	{
-		walk.play();
-		walk.animate(dt);
+		if(fabs(velocity.x) != 0.f)
+		{
+			walk.play();
+			walk.animate(dt);
+		}
+		else
+		{
+			walk.pause();
+			walk.setToInitialFrame();
+		}
+		if(velocity.x < 0.f)
+			walk.setFlipped(true);
+		else if(velocity.x > 0.f)
+			walk.setFlipped(false);
+		sprite.setTextureRect(walk.getCurrentFrame());
 	}
 	else
 	{
-		walk.pause();
-		walk.setToInitialFrame();
+		if(velocity.x < 0.f)
+			wallJump.setFlipped(true);
+		else if(velocity.x > 0.f)
+			wallJump.setFlipped(false);
+		sprite.setTextureRect(wallJump.getCurrentFrame());
 	}
-	if(velocity.x < 0.f)
-		walk.setFlipped(true);
-	else if(velocity.x > 0.f)
-		walk.setFlipped(false);
-	sprite.setTextureRect(walk.getCurrentFrame());
 }
 
 void Ninja::updateCurrent(const float dt)

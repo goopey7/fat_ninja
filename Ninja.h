@@ -44,6 +44,11 @@ class Ninja : public Actor
 		sf::Vector2f dir = {0.f,0.f};
 		float gravity = 98.1f*6.f;
 
+		Animation wallJump;
+		int wallJumpWidth = 15;
+		int wallJumpHeight = 21;
+		int wallJumpFrames = 1;
+
 		float wallJumpGravity = 98.1f*2.f;
 		float wallJumpSpeedX = 100.f;
 		float wallJumpSpeedY = 150.f*2.f;
@@ -57,6 +62,7 @@ class Ninja : public Actor
 		int walkHeight = 21;
 		int walkFrames = 4;
 		float walkSpeed = 0.1f;
+
 
 		sf::Vector2f displacementFromLastFrame;
 
