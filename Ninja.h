@@ -53,6 +53,7 @@ class Ninja : public Actor
 		float wallJumpSpeedX = 100.f;
 		float wallJumpSpeedY = 150.f*2.f;
 		bool bHasWallJumped = false;
+		float wallJumpDir = 0.f;
 
 		float jumpSpeed = 150.f*2.f;
 		float maxSpeed = 110.f;

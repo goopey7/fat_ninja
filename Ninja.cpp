@@ -147,7 +147,7 @@ void Ninja::jump()
 {
 	if(state == WallJump)
 	{
-		velocity.x = -dir.x * wallJumpSpeedX;
+		velocity.x = wallJumpDir * wallJumpSpeedX;
 		velocity.y = -wallJumpSpeedY;
 		bCanJump = false;
 		bHasWallJumped = true;
@@ -215,6 +215,7 @@ void Ninja::onCollisionEnter(Actor* other, sf::Vector2f& contactPoint, sf::Vecto
 	if(contactNormal.x != 0.f && state != Swinging && contactNormal.y == 0.f)
 	{
 		bCanJump = false;
+		wallJumpDir = contactNormal.x;
 		state = WallJump;
 	}
 
