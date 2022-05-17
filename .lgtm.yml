@@ -1,0 +1,17 @@
+extraction:
+  cpp:
+    prepare:
+      packages:
+      - "build-essential"
+      - "cmake"
+      - "extra-cmake-modules"
+      - "libsfml-dev"
+    configure:
+      command:
+      - "mkdir build"
+      - "cd build"
+      - "cmake .."
+    index:
+      build_command:
+      - "cd build"
+      - "make"
