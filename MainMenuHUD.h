@@ -4,6 +4,7 @@
 #include "gf/Node.h"
 #include "Level.h"
 #include "gf/Button.h"
+#include "gf/Text.h"
 
 class MainMenuHUD : public Node
 {
@@ -19,7 +20,11 @@ class MainMenuHUD : public Node
 	private:
 		std::unique_ptr<World>* currentWorld = nullptr;
 		Button* playButton;
+		Button* controls;
+		Text* howToPlay;
 		sf::RenderWindow* window;
 		FontHolder* fonts;
+		bool howToPlaySelected = false;
+		bool playButtonClicked = false;
 };
 

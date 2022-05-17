@@ -59,7 +59,6 @@ class Game
 
 		sf::Sprite splashScreen;
 		bool bSplashScreenDone = false;
-		float splashScreenSpeed = 255.f; //val/sec
-		int splashScreenTime = 3; // seconds
+		int splashScreenTime = 0; // seconds
 };
 
