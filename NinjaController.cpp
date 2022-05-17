@@ -86,7 +86,7 @@ NinjaController::NinjaController(sf::RenderWindow* window)
 			sf::Vector2u textureSize = shuriken->getTextureSize();
 			shuriken->setCollisionBox(sf::FloatRect(0.f,0.f,textureSize.x,textureSize.y));
 			shuriken->setTextureRect(sf::IntRect(0.f,0.f,textureSize.x,textureSize.y));
-			shuriken->setPosition(ninja.getWorldPosition());
+			shuriken->setPosition(ninja.getWorldPosition() + sf::Vector2f(5.f,16.f));
 			shuriken->setIsDynamic(true);
 			shuriken->setupTarget(mWorldPos);
 			shuriken->setOrigin(textureSize.x/2.f, textureSize.y/2.f);
