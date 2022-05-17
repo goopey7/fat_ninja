@@ -59,16 +59,8 @@ void Shuriken::onDynamicVsDynamicEnter(Actor* other)
 		{
 			hud->addKill();
 			other->die();
-			die();
-			hitOther = nullptr;
 		}
-		else
-		{
-			bHitWall = true;
-			velocity = sf::Vector2f(0.f,0.f);
-			hitOther = other;
-			relativePos = sf::Vector2f(getWorldPosition() - other->getWorldPosition());
-		}
+		die();
 	}
 }
 
@@ -84,7 +76,6 @@ void Shuriken::fixedUpdateCurrent(const float dt)
 	if(hitOther != nullptr)
 	{
 		setPosition(relativePos + hitOther->getWorldPosition());
-		std::cout << "uhhhhhhhh\n";
 	}
 }
 
