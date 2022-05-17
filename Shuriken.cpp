@@ -7,7 +7,7 @@ Shuriken::Shuriken(GameHUD* hud,Player& sounds,const TextureHolder& textures, Wo
 	: Actor(sounds,textures,world), hud(hud)
 {
 	setCategory(Category::Shuriken | Category::Actor);
-	damage = 10.f;
+	damage = 50.f;
 }
 
 void Shuriken::setupTarget(sf::Vector2f target)

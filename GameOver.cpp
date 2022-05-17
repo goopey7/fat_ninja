@@ -18,7 +18,7 @@ void GameOver::loadResources()
 
 void GameOver::buildGraph()
 {
-	std::unique_ptr<GameOverHUD> hud(new GameOverHUD(fonts,window,bComplete));
+	std::unique_ptr<GameOverHUD> hud(new GameOverHUD(fonts,window,bComplete,bGameOver));
 	this->hud = hud.get();
 	addNode(&hud,HUD);
 }

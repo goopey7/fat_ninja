@@ -8,7 +8,7 @@
 class GameOverHUD : public Node
 {
 	public:
-		GameOverHUD(FontHolder& fonts, sf::RenderWindow& window, bool& bComplete);
+		GameOverHUD(FontHolder& fonts, sf::RenderWindow& window, bool& bComplete, bool& bGameOver);
 		~GameOverHUD();
 		virtual void updateCurrent(const float dt) override;
 		virtual void fixedUpdateCurrent(const float dt) override;
@@ -17,8 +17,10 @@ class GameOverHUD : public Node
 	private:
 		Text* gameOverMessage = nullptr;
 		Button* restartButton = nullptr;
+		Button* nextLevelButton = nullptr;
 		sf::RenderWindow* window = nullptr;
 		FontHolder* fonts = nullptr;
 		bool* bComplete = nullptr;
+		bool* bGameOver = nullptr;
 };
 

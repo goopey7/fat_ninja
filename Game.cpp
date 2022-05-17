@@ -99,12 +99,22 @@ void Game::fixedUpdate(const float dt)
 {
 	(*world)->fixedUpdate(dt);
 
-	//TODO Game Over Screen!!
 	if((*world)->gameOver())
 	{
-		levelDiedOn = world->get()->getID();
-		(*world)->changeWorld(new GameOver(*window,world,world->get()->getID(),levelFiles));
-		inGameOver = true;
+		if(inGameOver)
+		{
+			if(world->get()->getID()+1 != levelFiles.size())
+				world->get()->changeWorld(new Level(*window,world,levelFiles[levelDiedOn+1]));
+			else
+				world->get()->changeWorld(new MainMenu(*window,world,"levels/mainMenu.tmj"));
+			inGameOver = false;
+		}
+		else
+		{
+			levelDiedOn = world->get()->getID();
+			(*world)->changeWorld(new GameOver(*window,world,world->get()->getID(),levelFiles));
+			inGameOver = true;
+		}
 	}
 
 	// advance to the next level
