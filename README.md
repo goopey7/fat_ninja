@@ -1,8 +1,7 @@
 # CMP105_CW
 CMP105 Coursework Game
 
-(Probably a Final Ninja Clone)
-Game Title: ?
+Game Title: Fat Ninja
 
 Student Number : 2100259
 
@@ -16,3 +15,6 @@ Left Mouse Button - Throw shuriken in direction of mouse pointer
 
 Hold Left Mouse Button - Grapple to the suriken you have thrown
 
+B - Show AABBs
+
+ESC - Pause
