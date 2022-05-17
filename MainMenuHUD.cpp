@@ -18,9 +18,11 @@ MainMenuHUD::MainMenuHUD(FontHolder& fonts,sf::RenderWindow* window, std::unique
 
 MainMenuHUD::~MainMenuHUD()
 {
+	/*
 	delete playButton;
 	delete controls;
 	delete howToPlay;
+	*/
 }
 
 void MainMenuHUD::updateCurrent(const float dt)
@@ -58,7 +60,7 @@ void MainMenuHUD::updateCurrent(const float dt)
 		{}
 		else
 			controls->setFillColor(sf::Color::Transparent);
-		}
+	}
 }
 
 void MainMenuHUD::drawCurrent(sf::RenderTarget& target, const sf::RenderStates& states) const
