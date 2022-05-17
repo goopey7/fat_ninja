@@ -11,7 +11,10 @@ MainMenuHUD::MainMenuHUD(FontHolder& fonts,sf::RenderWindow* window, std::unique
 	playButton = new Button(*window,sf::Vector2f(300.f,300.f),sf::Vector2f(300.f,100.f),fonts.get(Fonts::Pixel),"Play Game");
 	controls = new Button(*window,sf::Vector2f(300.f,300.f),sf::Vector2f(300.f,100.f),fonts.get(Fonts::Pixel), "How to play");
 	howToPlay = new Text(*window,fonts.get(Fonts::Arial));
-	howToPlay->setText("Movement : WASD\nJump : SPACE\nAttack : LMB\nGrapple : LMB (Held)\nDebug Toggle : B");
+	std::ostringstream oss;
+	oss << "Movement : WASD\nJump : SPACE\nAttack : LMB\nGrapple : LMB (Held)\nDebug Toggle : B\nPause : ESC\n\n";
+	oss << "Find the W pickup!";
+	howToPlay->setText(oss.str());
 	howToPlay->anchorTo(Anchor::Center);
 	howToPlay->setFontSize(60);
 }

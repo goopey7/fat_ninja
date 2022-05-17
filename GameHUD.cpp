@@ -14,8 +14,10 @@ GameHUD::GameHUD(FontHolder& fonts, sf::RenderWindow& window)
 
 GameHUD::~GameHUD()
 {
+	/*
 	delete playerHealth;
 	delete enemiesKilled;
+	*/
 }
 
 void GameHUD::fixedUpdateCurrent(const float dt)
