@@ -129,10 +129,59 @@ void Game::render()
 void Game::run()
 {
 	const sf::Time TimePerFixedUpdate = sf::seconds(1.f/TicksPerSec);
+	const sf::Time TimeUntilMoreOpacityAdded = sf::seconds(splashScreenTime/2.f/255.f);
 	sf::Clock timer;
 	sf::Time prevTime = sf::Time::Zero;
 	sf::Time timeBetweenTicks = sf::Time::Zero;
-	
+
+	bool bDoneGoingUp = false;
+
+	sf::Texture splashTexture;
+	splashTexture.loadFromFile("art/splashScreen.png");
+	splashScreen.setTexture(splashTexture);
+	float opacity = 0;
+	while(!bSplashScreenDone)
+	{
+		splashScreen.setColor(sf::Color(255,255,255,opacity));
+		sf::Time currentTime = timer.getElapsedTime();
+		sf::Time dt = currentTime - prevTime;
+		timeBetweenTicks += dt;
+		prevTime = currentTime;
+
+		splashScreen.setOrigin(splashTexture.getSize().x/2.f,splashTexture.getSize().y/2.f);
+		splashScreen.setPosition(window->getSize().x/2.f,window->getSize().y/2.f);
+
+		if(opacity<255 && timeBetweenTicks >= TimeUntilMoreOpacityAdded && !bDoneGoingUp)
+		{
+			opacity += 1;
+			timeBetweenTicks -= TimeUntilMoreOpacityAdded;
+		}
+		else if(opacity == 255)
+			bDoneGoingUp = true;
+
+		if(timeBetweenTicks >= TimeUntilMoreOpacityAdded && bDoneGoingUp && opacity > 0)
+		{
+			opacity-=1;
+			timeBetweenTicks -= TimeUntilMoreOpacityAdded;
+		}
+		else if(opacity == 0)
+			bSplashScreenDone = true;
+
+		// handle events
+		sf::Event e;
+		while(window->pollEvent(e))
+		{
+			if(e.type == sf::Event::Closed)
+				window->close();
+			else if(e.type == sf::Event::Resized)
+				changeScale();
+		}
+
+		// render
+		window->clear();
+		window->draw(splashScreen);
+		window->display();
+	}
 	// GAME LOOP
 	while(window->isOpen())
 	{
@@ -163,5 +212,4 @@ void Game::run()
 		render();
 	}
 }
-
 

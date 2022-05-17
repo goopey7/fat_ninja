@@ -56,5 +56,10 @@ class Game
 		bool inGameOver = false;
 
 		int levelDiedOn = -1;
+
+		sf::Sprite splashScreen;
+		bool bSplashScreenDone = false;
+		float splashScreenSpeed = 255.f; //val/sec
+		int splashScreenTime = 3; // seconds
 };
 
