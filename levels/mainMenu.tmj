@@ -1209,6 +1209,12 @@
  "nextlayerid":4,
  "nextobjectid":103,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"levelID",
+         "type":"int",
+         "value":0
+        }],
  "renderorder":"right-down",
  "tiledversion":"1.8.4",
  "tileheight":16,

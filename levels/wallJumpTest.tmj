@@ -205,6 +205,12 @@
  "nextlayerid":4,
  "nextobjectid":7,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"levelID",
+         "type":"int",
+         "value":2
+        }],
  "renderorder":"right-down",
  "tiledversion":"1.8.4",
  "tileheight":16,
@@ -218,7 +224,7 @@
          "margin":0,
          "name":"bricks",
          "spacing":0,
-         "tilecount":27,
+         "tilecount":0,
          "tileheight":16,
          "tilewidth":16
         }],
